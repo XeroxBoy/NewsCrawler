@@ -10,7 +10,7 @@ public class loginController {
 	@RequestMapping("/user.do")
 	public String userLogin(){
 		
-		return "user";
+		return "index";
 		
 	}
 }

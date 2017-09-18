@@ -14,10 +14,8 @@ xsi:schemaLocation="
   http://www.springframework.org/schema/mvc
   http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
   
-  <bean id="userService" class="com.invest.service.userService">
-  <property name="userdao" ref="userDao"></property>
-  </bean>
-  <bean id="userDao" class="com.invest.service.userService">
-  
-  </bean>
+<!--   <bean id="userService" class="com.invest.service.userService">
+  </bean> -->
+ <!--  <bean id="userDao" class="com.invest.dao.userDao">
+  </bean> -->
   </beans>

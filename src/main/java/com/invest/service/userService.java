@@ -6,6 +6,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -13,6 +14,7 @@ import com.invest.dao.userDao;
 import com.invest.pojo.User;
 
 public class userService {
+@Autowired
 private userDao userdao;
 
 private static SqlSessionFactory sqlSessionFactory;

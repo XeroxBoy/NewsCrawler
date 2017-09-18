@@ -4,7 +4,7 @@
     <typeAliases>  
         <typeAlias alias="user" type="com.invest.pojo.User"/>  
     </typeAliases>  
-    <mappers>
-    <mapper resource="mapper/mybatis-User.xml" />
-    </mappers>
+<!--     <mappers>
+    <mapper resource="mappers/mybatis-User.xml" />
+    </mappers> -->
 </configuration>  

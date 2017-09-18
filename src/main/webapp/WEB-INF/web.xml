@@ -14,7 +14,7 @@
  </welcome-file-list>
 <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:spring-*.xml,classpath*:applicationContext.xml</param-value>
+    <param-value>classpath:spring-*.xml,classpath:applicationContext.xml</param-value>
 </context-param>
 <servlet>
               <servlet-name>Dispatcher</servlet-name>
@@ -22,7 +22,7 @@
               <!-- 自定义spring mvc的配置文件名称和路径 -->
               <init-param>
                   <param-name>contextConfigLocation</param-name>
-                  <param-value>classpath*:spring-servlet.xml</param-value>
+                  <param-value>classpath:configs/springMvc-servlet.xml</param-value>
               </init-param>
               <load-on-startup>1</load-on-startup>
          </servlet>

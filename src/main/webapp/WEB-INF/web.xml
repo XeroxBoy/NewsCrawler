@@ -10,11 +10,11 @@
              <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
      </listener>
      <welcome-file-list>
- <welcome-file>views/index.jsp</welcome-file>
+ <welcome-file>index.jsp</welcome-file>
  </welcome-file-list>
 <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring-*.xml,classpath:applicationContext.xml</param-value>
+    <param-value>classpath:spring-mybatis.xml</param-value>
 </context-param>
 <servlet>
               <servlet-name>Dispatcher</servlet-name>
@@ -26,4 +26,9 @@
               </init-param>
               <load-on-startup>1</load-on-startup>
          </servlet>
+         <servlet-mapping>  
+    <servlet-name>Dispatcher</servlet-name>  
+    <url-pattern>*.do</url-pattern>  
+</servlet-mapping>  
+  
 </web-app>

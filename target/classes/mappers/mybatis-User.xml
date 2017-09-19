@@ -6,15 +6,15 @@ username,password
 </sql>
 <select id="selectUser" parameterType="java.lang.String">
 select <include refid="baseColumn"></include>
-from user where username=#{username}
+from newuser where username=#{username}
 </select>
 <insert id="insertUser">
-insert into user(<include refid="baseColumn"></include>) values(#{username},#{password})
+insert into newuser(<include refid="baseColumn"></include>) values(#{username},#{password})
 </insert>
 <update id="updateUser">
-update user set password=#{password} where username=#{username}
+update newuser set password=#{password} where username=#{username}
 </update>
 <delete id="deleteUser">
-delete from user where username=#{username}
+delete from newuser where username=#{username}
 </delete>
 </mapper>

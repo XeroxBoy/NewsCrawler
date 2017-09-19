@@ -7,24 +7,23 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Service;
 
 import com.invest.dao.userDao;
 import com.invest.pojo.User;
-
+@Service
 public class userService {
 @Autowired
 private userDao userdao;
 
 private static SqlSessionFactory sqlSessionFactory;
 private static Reader reader;
-private static  ApplicationContext ctx;
+//private static  ApplicationContext ctx;
 static{
 try{
 	reader=Resources.getResourceAsReader("spring-mybatis.xml");
 	sqlSessionFactory=new SqlSessionFactoryBuilder().build(reader);
-    ctx=new ClassPathXmlApplicationContext("applicationContext.xml");
+  //  ctx=new ClassPathXmlApplicationContext("applicationContext.xml");
 
 }
 catch(Exception e){
@@ -57,10 +56,10 @@ public void  updateUser(User user)
 	session.close();
 }
 public User selectUser(String username){
-userService userService=(com.invest.service.userService) ctx.getBean("userService");
+//userService userService=(com.invest.service.userService) ctx.getBean("userService");
 	SqlSession session=sqlSessionFactory.openSession();
-/*	userdao=session.getMapper(userDao.class);
-*/	User user=userService.selectUser(username);
+	userdao=session.getMapper(userDao.class);
+	User user=userdao.selectUser(username);
 	session.close();
 	return user;
 }

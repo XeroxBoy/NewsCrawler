@@ -1,77 +1,58 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'index.jsp' starting page</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="http://www.modernizr.com/downloads/modernizr-latest.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/login.css" />
-<script type="text/javascript">
-$(function()
-{
-    // check placeholder browser support
-    if (!Modernizr.input.placeholder)
-    {
-         // set placeholder values
-        $(this).find('[placeholder]').each(function()
-        {
-            if ($(this).val() == '') // if field is empty
-            {
-                $(this).val( $(this).attr('placeholder') );
-            }
-        });
-         // focus and blur of placeholders
-        $('[placeholder]').focus(function()
-        {
-            if ($(this).val() == $(this).attr('placeholder'))
-            {
-                $(this).val('');
-                $(this).removeClass('placeholder');
-            }
-        }).blur(function()
-        {
-            if ($(this).val() == '' || $(this).val() == $(this).attr('placeholder'))
-            {
-                $(this).val($(this).attr('placeholder'));
-                $(this).addClass('placeholder');
-            }
-        });
-         // remove placeholders on submit
-        $('[placeholder]').closest('form').submit(function()
-        {
-            $(this).find('[placeholder]').each(function()
-            {
-                if ($(this).val() == $(this).attr('placeholder'))
-                {
-                    $(this).val('');
-                }
-            })
-        });
-     }
-});</script>
-  </head>
-  
-  <body>
-    <form id="slick-login">
-        <input type="text" name="username" placeholder="me@tutsplus.com">
-        <input type="password" name="password" placeholder="password">
-        <input type="submit" value="Log In">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>计算新闻</title>
+
+    <link rel="stylesheet" href="css/normalize.css">
+
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+
+</head>
+
+<body>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Facebook login form</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<section class="login-form-wrap">
+    <h1>计蒜新闻</h1>
+    <form class="login-form" ，method="POST"  action="#">
+        <label>
+            <input type="email" name="email" required placeholder="Email">
+        </label>
+        <label>
+            <input type="password" name="password" required placeholder="Password">
+        </label>
+        <input type="submit" value="Login">
     </form>
-  </body>
+    <h5><a href="#">Forgot password</a></h5>
+</section>
+<div style="text-align:center;clear:both">
+    <script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>
+    <script src="/follow.js" type="text/javascript"></script>
+</div>
+</body>
+</html>
+
+</body>
+
 </html>

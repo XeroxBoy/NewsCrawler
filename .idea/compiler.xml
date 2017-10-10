@@ -22,10 +22,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="SpringMvc" />
         <module name="webmagic-core" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="SpringMvc" target="1.7" />
       <module name="webmagic-core" target="1.7" />
     </bytecodeTargetLevel>
   </component>

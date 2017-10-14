@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="webmagic-core:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="SpringMvcTest.war">
-      <element id="artifact" artifact-name="webmagic-core:war exploded" />
-    </root>
-  </artifact>
-</component>

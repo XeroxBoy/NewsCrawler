@@ -11,13 +11,15 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.Reader;
+
 @Service("userService")
 public class userService {
-@Resource
-private userDao userdao;
-/*
-private static SqlSessionFactory sqlSessionFactory;
-private static Reader reader;*/
+    @Resource
+    private userDao userdao;
+
+    /*
+    private static SqlSessionFactory sqlSessionFactory;
+    private static Reader reader;*/
 //private static  ApplicationContext ctx;
 /*static{
 try{
@@ -30,36 +32,38 @@ catch(Exception e){
 	e.printStackTrace();
 }
 }*/
-public void insertUser(User user){
-	/*SqlSession session=sqlSessionFactory.openSession();
+    public void insertUser(User user) {
+    /*SqlSession session=sqlSessionFactory.openSession();
 	userdao=session.getMapper(userDao.class);*/
-	userdao.insertUser(user);
+        userdao.insertUser(user);
 	/*session.commit();
 	session.close();*/
-}
-public void deleteUser(String username){
+    }
+
+    public void deleteUser(String username) {
 /*	SqlSession session=sqlSessionFactory.openSession();
 	userdao=session.getMapper(userDao.class);*/
-    userdao.deleteUser(username);
+        userdao.deleteUser(username);
 /*	session.commit();
     session.close();*/
-}
-public void  updateUser(User user)
-{
+    }
+
+    public void updateUser(User user) {
 	/*SqlSession session=sqlSessionFactory.openSession();
 	userdao=session.getMapper(userDao.class);*/
-	userdao.updateUser(user);
+        userdao.updateUser(user);
 	/*session.commit();
 	session.close();*/
-}
-public User selectUser(String username){
+    }
+
+    public User selectUser(String username) {
 //userService userService=(com.invest.service.userService) ctx.getBean("userService");
 /*	SqlSession session=sqlSessionFactory.openSession();
 	userdao=session.getMapper(userDao.class);*/
-	User user=userdao.selectUser(username);
+        User user = userdao.selectUser(username);
 /*
 	session.close();
 */
-	return user;
-}
+        return user;
+    }
 }

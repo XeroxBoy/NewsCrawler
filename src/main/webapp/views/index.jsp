@@ -13,9 +13,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     <title>计算新闻</title>
 
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="../css/normalize.css">
 
-    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="../css/style.css" media="screen" type="text/css" />
 
 </head>
 
@@ -35,6 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <section class="login-form-wrap">
     <h1>计蒜新闻</h1>
+    <p>${msg}</p>
     <form class="login-form" method="POST"  action="#">
         <label>
             <input type="email" name="email" required placeholder="Email">
@@ -46,10 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </form>
     <h5><a href="#">Forgot password</a></h5>
 </section>
-<div style="text-align:center;clear:both">
-    <script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>
-    <script src="/follow.js" type="text/javascript"></script>
-</div>
+
 </body>
 </html>
 

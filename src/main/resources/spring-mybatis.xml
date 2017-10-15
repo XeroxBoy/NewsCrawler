@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
-    http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context-4.2.xsd"
-        >
-<!--<beans xmlns="http://www.springframework.org/schema/beans"
+<beans  xmlns="http://www.springframework.org/schema/beans"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:tx="http://www.springframework.org/schema/tx"
         xmlns:context="http://www.springframework.org/schema/context"
         xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
-                     http://www.springframework.org/schema/tx
-                     http://www.springframework.org/schema/tx/spring-tx.xsd
-                      http://www.springframework.org/schema/context
-                     http://www.springframework.org/schema/context/spring-context-4.2.xsd" >-->
-    <!-- 引入属性文件 -->
+                          http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                          http://www.springframework.org/schema/tx
+                          http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+                          http://www.springframework.org/schema/context
+                          http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
     <context:property-placeholder location="classpath:jdbc.properties" />
     <!-- 自动扫描(自动注入) -->
     <context:component-scan base-package="com.invest.service" />
@@ -53,10 +45,8 @@
         <property name="basePackage"  value="com.invest.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
-    <!-- 配置事物的注解方式注入 -->
-<!--
+     <!--配置事物的注解方式注入-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
--->
 <!--
     <tx:annotation-driven transaction-manager="transactionManager" />
 -->
@@ -66,11 +56,9 @@
     </bean>
 
 
-<!--
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg index="0" ref="sqlSessionFactory" />
         <constructor-arg index="1" value="BATCH" />
     </bean>
--->
 
 </beans>

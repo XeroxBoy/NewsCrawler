@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <section class="login-form-wrap">
     <h1>计蒜新闻</h1>
     <p>${msg}</p>
-    <form class="login-form" method="POST"  action="#">
+    <form class="login-form" method="POST"  action="/login/user.do">
         <label>
             <input type="email" name="email" required placeholder="Email">
         </label>

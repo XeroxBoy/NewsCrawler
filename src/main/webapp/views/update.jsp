@@ -11,6 +11,17 @@
     <title>Title</title>
 </head>
 <body>
-
+<form class="login-form" method="POST"  action="/login/update.do">
+    <label>
+        <input type="text" name="username" required placeholder="your Username">
+    </label>
+    <label>
+        <input type="email" name="email" required placeholder="Confirm your password">
+    </label>
+    <label>
+        <input type="password" name="password" required placeholder="your Password">
+    </label>
+    <input type="submit" value="修改">
+</form>
 </body>
 </html>

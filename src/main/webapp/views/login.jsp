@@ -38,14 +38,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <p>${msg}</p>
     <form class="login-form" method="POST"  action="/login/user.do">
         <label>
-            <input type="email" name="email" required placeholder="Email">
+            <input type="text" name="username" required placeholder="your Username">
         </label>
         <label>
-            <input type="password" name="password" required placeholder="Password">
+            <input type="password" name="password" required placeholder="your Password">
         </label>
         <input type="submit" value="Login">
     </form>
-    <h5><a href="#">Forgot password</a></h5>
+    <h5><a href="update.jsp">Forgot password</a></h5>
 </section>
 
 </body>

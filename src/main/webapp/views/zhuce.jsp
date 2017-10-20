@@ -41,11 +41,14 @@
             <input type="email" name="email" required placeholder="Email">
         </label>
         <label>
+            <input type="text" name="username" required placeholder="your username">
+        </label>
+
+        <label>
             <input type="password" name="password" required placeholder="Password">
         </label>
         <input type="submit" value="注册">
     </form>
-    <h5><a href="#">Forgot password</a></h5>
 </section>
 
 </body>

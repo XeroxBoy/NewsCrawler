@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.invest.dao.newsDao">
-<sql id="baseColumn">
+    <sql id="baseColumn">
  title,resource,summary,writer,time
  </sql>
- <select id="selectNews" parameterType="java.lang.String">
-  select <include refid="baseColumn"></include> from news where id=#{id}
-</select>
-<insert id="insertNews" parameterType="com.invest.pojo.news">
-  insert into news(<include refid="baseColumn"></include>) VALUES (#{title},#{resource},#{summary},#{writer},#{time})
-</insert>
- <update id="updateNews" parameterType="com.invest.pojo.news">
+    <select id="selectNews" parameterType="java.lang.String" resultType="com.invest.pojo.news">
+        select
+        <include refid="baseColumn"></include>
+        from news where id=#{id}
+    </select>
+    <insert id="insertNews" parameterType="com.invest.pojo.news">
+        insert into news(<include refid="baseColumn"></include>) VALUES
+        (#{title},#{resource},#{summary},#{writer},#{time})
+    </insert>
+    <update id="updateNews" parameterType="com.invest.pojo.news">
   UPDATE news SET title=#{title},resource=#{resource},summary=#{summary},writer=#{writer},time=#{time}
  </update>
- <delete id="deleteNews" parameterType="java.lang.String">
+    <delete id="deleteNews" parameterType="java.lang.String">
   DELETE FROM news WHERE title=#{title}
  </delete>
- <select id="selectTotalNum" parameterType="java.lang.Integer">
-    SELECT max(id) from news
+    <select id="selectTotalNum" parameterType="java.lang.Integer">
+    SELECT count(*) from news
  </select>
-        </mapper>
+    <select id="selectNewsByPage" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="baseColumn"></include> FROM news
+        ORDER BY id DESC
+        limit #{startPage}*#{pageSize},
+        #{pageSize}
+
+
+    </select>
+
+</mapper>

@@ -1,15 +1,53 @@
 package com.invest.page;
-
-import com.invest.pojo.news;
-
-import java.util.ArrayList;
-
+import java.util.List;
 /**
- * Created by AlexAnderIch on 2017/10/20.
+ * Created by AlexAnderIch on 2017/10/22.
  */
-public class newsPage {
-    private ArrayList newsList=new ArrayList();
-    public void add(news news) {
-        newsList.add(news);
+public class newsPage<T> {
+    public int getCurrPage() {
+        return currPage;
     }
+
+    private int currPage;//当前页数
+    private int pageSize;//每页显示的记录数
+    private int totalCount;//总记录数
+
+    public void setCurrPage(int currPage) {
+        this.currPage = currPage;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public int getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
+    }
+
+    public List<T> getList() {
+        return list;
+    }
+
+    public void setList(List<T> list) {
+        this.list = list;
+    }
+
+    private int totalPage;//总页数
+    private List<T> list;//每页显示的数据
 }

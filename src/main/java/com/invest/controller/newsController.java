@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.invest.service.newsService;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,14 +27,14 @@ public class newsController {
     * 分页查询数据库中爬虫爬取的新闻
     * */
     @RequestMapping("/selectNews.do")
-    public ModelAndView updateNewsByPage(HttpServletRequest request) {
-        ModelAndView mav=new ModelAndView("views/index");
-        int pageSize=10;
-        int startPage=Integer.valueOf(request.getParameter("pageNo"));//页码
+    public ModelAndView updateNewsByPage(HttpServletRequest request, @RequestParam("pageNo") int pageNo) {
+        ModelAndView mav = new ModelAndView("views/index");
+        int pageSize = 10;
+        int startPage = pageNo;//页码'
         int totalnum = NewsService.selectTotalNum();//统计数据库中新闻的数量
         int page = 1 + totalnum / 10;//一页显示10个新闻,总页数为page
         int restNews = totalnum % 10;//最后一页显示的新闻数
-        newsPage<news> newsPage= NewsService.selectNewsByPage(startPage, pageSize);
+        newsPage<news> newsPage = NewsService.selectNewsByPage(startPage, pageSize);
         mav.addObject(newsPage);
         return mav;
     }

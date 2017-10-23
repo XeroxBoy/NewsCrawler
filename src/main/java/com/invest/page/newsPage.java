@@ -1,19 +1,24 @@
 package com.invest.page;
+
 import java.util.List;
+
 /**
  * Created by AlexAnderIch on 2017/10/22.
  */
 public class newsPage<T> {
-    public int getCurrPage() {
-        return currPage;
-    }
 
     private int currPage;//当前页数
     private int pageSize;//每页显示的记录数
     private int totalCount;//总记录数
+    private int totalPage;//总页数
+    private List<T> list;//每页显示的数据
 
     public void setCurrPage(int currPage) {
         this.currPage = currPage;
+    }
+
+    public int getCurrPage() {
+        return currPage;
     }
 
     public int getPageSize() {
@@ -48,6 +53,4 @@ public class newsPage<T> {
         this.list = list;
     }
 
-    private int totalPage;//总页数
-    private List<T> list;//每页显示的数据
 }

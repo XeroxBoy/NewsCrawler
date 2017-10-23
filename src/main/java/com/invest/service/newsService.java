@@ -4,6 +4,7 @@ import com.invest.dao.newsDao;
 import com.invest.page.newsPage;
 import com.invest.pojo.news;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import javax.annotation.Resource;
 
@@ -37,16 +38,17 @@ public class newsService {
     public int selectTotalNum() {
         return newsdao.selectTotalNum();
     }
+
     /*
     * 分页查询新闻
     * */
-    public newsPage<news> selectNewsByPage(int pageNo,int pageSize){
-        newsPage<news> page=new newsPage<>();
-        page.setList(newsdao.selectNewsByPage(pageNo,pageSize));
+    public newsPage<news> selectNewsByPage(int pageNo, int pageSize) {
+        newsPage<news> page = new newsPage<>();
+        page.setList(newsdao.selectNewsByPage(pageNo, pageSize));
         page.setCurrPage(pageNo);
         page.setPageSize(pageSize);
         page.setTotalCount(this.selectTotalNum());
-        page.setTotalPage(this.selectTotalNum()/pageSize);
+        page.setTotalPage(this.selectTotalNum() / pageSize);
         return page;
     }
 }

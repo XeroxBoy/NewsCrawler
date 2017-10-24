@@ -47,8 +47,9 @@ public class newsController {
 // TODO
         String urlStart = "http://blog.csdn.net/ranking.html";
         String url = "http://blog.csdn.net/";
+        String Agent="Mozilla/5.0 (Windows NT 6.1; rv:47.0) Gecko/20100101 Firefox/47.0";
         try {
-            Document doc = Jsoup.connect(urlStart).userAgent("Mozilla/5.0 (Windows NT 6.1; rv:47.0) Gecko/20100101 Firefox/47.0")
+            Document doc = Jsoup.connect(urlStart).userAgent(Agent)
                     .get();
             Elements rankingArticle = doc.select(".blog_pad a");//选中热门榜前10作者
             int time = 1;//作者排行榜排名
@@ -61,8 +62,8 @@ public class newsController {
                 newI.setWriter(userId);//文章作者
 
                 System.out.println(userId);
-                Document userPage = Jsoup.connect(url + userId).userAgent("Mozilla").get();//访问文章作者主页
-                Elements titles = userPage.select(".list_item article_item");//获取
+                Document userPage = Jsoup.connect(url + userId).userAgent(Agent).get();//访问文章作者主页
+                Elements titles = userPage.select(".article_item");//获取
                 for (Element title : titles) {
                     String fullUrl = url + title.select(".link_title a").attr("href");//文章链接
                     newI.setResource(fullUrl);

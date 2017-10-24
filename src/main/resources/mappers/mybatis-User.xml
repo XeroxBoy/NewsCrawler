@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.invest.dao.userDao">
     <sql id="baseColumn">
-username,password
+username,password,email
 </sql>
     <select id="selectUser" parameterType="java.lang.String">
         select <include refid="baseColumn"></include>
@@ -12,7 +12,7 @@ username,password
         insert into newuser(<include refid="baseColumn"></include>) values(#{username},#{password})
     </insert>
     <update id="updateUser">
-update newuser set password=#{password} where username=#{username}
+update newuser set password=#{password},email=#{email} where username=#{username}
 </update>
     <delete id="deleteUser">
 delete from newuser where username=#{username}

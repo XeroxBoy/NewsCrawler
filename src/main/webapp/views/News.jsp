@@ -18,10 +18,13 @@
 <c:forEach items="${newsPage}" var="item">
     <c:set var="index" value="0"/>
     <c:forEach var="x" begin="0" end="9" step="1">
-        <c:out value="${item.getList().get(index).getTitle()}"></c:out>
+        <a href="<c:out value="${item.getList().get(index).getResource()}"></c:out>">
+            <c:out value="${item.getList().get(index).getTitle()}"></c:out>
+        </a>
+        <c:out value="          ${item.getList().get(index).getWriter()}"></c:out>
+        <br>
         <c:out value="${item.getList().get(index).getSummary()}"></c:out>
-        <c:out value="${item.getList().get(index).getWriter()}"></c:out>
-        <c:out value="${item.getList().get(index).getResource()}"></c:out>
+
         <c:out value="${item.getList().get(index).getTime()}"></c:out>
         <c:set var="index" value="${index+1}"/>
     </c:forEach>

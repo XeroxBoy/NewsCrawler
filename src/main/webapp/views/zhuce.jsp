@@ -48,6 +48,8 @@
             <input type="password" name="password" required placeholder="Password">
         </label>
         <input type="submit" value="注册">
+        <h5><a href="login.jsp">已有账号？</a></h5>
+
     </form>
 </section>
 

@@ -60,7 +60,7 @@ body {
   font-weight: 400;
 }
 
-.login-form input[type="email"], .login-form input[type="password"] {
+.login-form input[type="email"], .login-form input[type="password"],.login-form input[type="text"] {
   width: 100%;
   border: 1px solid #314d89;
   outline: none;
@@ -70,7 +70,7 @@ body {
   font-family: 'Lato', sans-serif;
   cursor: pointer;
 }
-.login-form input[type="email"] {
+.login-form input[type="email"], .login-form input[type="password"],.login-form input[type="text"] {
   border-bottom: none;
   border-radius: 4px 4px 0 0;
   padding-bottom: 13px;

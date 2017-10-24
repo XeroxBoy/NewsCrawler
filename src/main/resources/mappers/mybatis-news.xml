@@ -28,8 +28,6 @@
         ORDER BY id DESC
         limit (#{startPage}*#{pageSize}),
         #{pageSize}
-
-
     </select>
 
 </mapper>

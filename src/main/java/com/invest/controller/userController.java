@@ -21,12 +21,12 @@ public class userController {
         String password = user.getPassword();
         User oriUser = userService.selectUser(username);
         if (oriUser.getPassword().equals(password)) {
-            mav = new ModelAndView("views/News");//跳转到用户界面
+            mav = new ModelAndView("redirect:/news/selectNews.do?pageNo=1");//跳转到用户界面
             mav.addObject("name", username);
             mav.addObject("password", password);
             return mav;
         } else {
-            errorMav = new ModelAndView("redirect:/news/selectNews.do");
+            errorMav = new ModelAndView("views/login");
             errorMav.addObject("msg", "请重新输入");
             return errorMav;
         }
@@ -53,10 +53,10 @@ public class userController {
         ModelAndView  mav,errorMav;
         mav=new ModelAndView("views/index");
         String username=user.getUsername();
-        User testUser=userService.selectUser(username);//检查是否有该用户名 若有 进行修改
-        if(testUser==null) {
+        User testUser=userService.selectUser(username);//检查是否有该用户名，邮箱是否一致 若有 进行修改
+        if(testUser==null || !testUser.getEmail().equals(user.getEmail())) {
             errorMav=new ModelAndView("views/update");
-            errorMav.addObject("msg","无此用户");
+            errorMav.addObject("msg","无此用户或您输错了邮箱");
             return errorMav;
         }
         userService.updateUser(user);

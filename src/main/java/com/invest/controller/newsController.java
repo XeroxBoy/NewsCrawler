@@ -62,7 +62,8 @@ public class newsController {
                 newI.setWriter(userId);//文章作者
 
                 System.out.println(userId);
-                Document userPage = Jsoup.connect(url + userId).userAgent(Agent).get();//访问文章作者主页
+                String writerUrl=url+userId;//作者主页
+                Document userPage = Jsoup.connect(writerUrl).userAgent(Agent).get();//访问文章作者主页
                 Elements titles = userPage.select(".article_item");//获取
                 for (Element title : titles) {
                     String fullUrl = url + title.select(".link_title a").attr("href");//文章链接

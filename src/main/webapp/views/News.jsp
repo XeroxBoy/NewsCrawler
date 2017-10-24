@@ -11,7 +11,7 @@
 
 <html>
 <link rel="stylesheet" type="text/css" href="../css/style01.css">
-
+<link rel="stylesheet" type="text/css" href="../css/foot.css">
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript">
     $(function(){
@@ -66,5 +66,12 @@
         <c:set var="index" value="${index+1}"/>
     </c:forEach>
 </c:forEach>
+<a href="News.jsp?pageNo=1">1</a>
+<a href="News.jsp?pageNo=2">2</a>
+<a href="News.jsp?pageNo=3">3</a>
+<a href="News.jsp?pageNo=4">4</a>
+<a href="News.jsp?pageNo=5">5</a>
+<a href="News.jsp?pageNo=6">6</a>
+<a href="News.jsp?pageNo=7">7</a>
 </body>
 </html>

@@ -10,10 +10,47 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
-<head>
-    <title>Title</title>
+<link rel="stylesheet" type="text/css" href="../css/style01.css">
+
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var _this1=null;
+        $('.nav>li').hover(function(){
+            _this1=$(this);
+            _this1.find('.second-nav').show();
+            var _this2=null;
+            _this1.find('.second-nav').find('li').hover(function(){
+                _this2=$(this);
+                _this2.find('.third-nav').show();
+                _this2.find('.third-nav').hover(function(){
+                    $(this).show();
+                },function(){
+                    $(this).hide();
+                });
+            },function(){
+                _this2.find('.third-nav').hide();
+            });
+        },function(){
+            _this1.find('.second-nav').hide();
+        });
+    });
+</script>
+
 </head>
 <body>
+
+<div class="header">
+    <ul class="nav">
+        <li><a href="News.jsp">首页</a>
+
+        </li>
+        <li><a href="MyInfo.jsp">我的信息</a>
+
+        </li>
+
+    </ul>
+</div>
 <%--嵌套两层循环输出新闻数据--%>
 <c:forEach items="${newsPage}" var="item">
     <c:set var="index" value="0"/>

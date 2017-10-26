@@ -22,9 +22,10 @@
     <select id="selectTotalNum" parameterType="java.lang.Integer">
     SELECT count(*) from news
  </select>
-    <select id="selectNewsByPage" parameterType="java.lang.Integer">
+    <select id="selectNewsByPage" parameterType="java.lang.Integer" resultType="com.invest.pojo.news">
         SELECT
-        <include refid="baseColumn"></include> FROM news
+        <include refid="baseColumn"></include>
+        FROM news
         ORDER BY id DESC
         limit (#{startPage}*#{pageSize}),
         #{pageSize}

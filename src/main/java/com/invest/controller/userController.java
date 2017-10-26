@@ -22,14 +22,14 @@ public class userController {
         String username = user.getUsername();
         String password = user.getPassword();
         User oriUser = userService.selectUser(username);
-        if (oriUser.getPassword().equals(password)) {
+        if (oriUser.getPassword().equals(password)) { //密码输入正确
             mav = new ModelAndView("redirect:/news/selectNews.do?pageNo=1");//跳转到用户界面
             mav.addObject("name", username);
             mav.addObject("password", password);
             session.setAttribute("name", username);//把用户名保存在session中
             return mav;
         } else {
-            errorMav = new ModelAndView("views/login");
+            errorMav = new ModelAndView("views/login");//信息错误 重新登录
             errorMav.addObject("msg", "请重新输入");
             return errorMav;
         }

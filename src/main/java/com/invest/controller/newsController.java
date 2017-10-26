@@ -28,7 +28,7 @@ public class newsController {
     * */
     @RequestMapping("/selectNews.do")
     public ModelAndView updateNewsByPage(@RequestParam("pageNo") int pageNo) {
-        ModelAndView mav = new ModelAndView("views/index");
+        ModelAndView mav = new ModelAndView("views/News");
         this.crawlInfo();//爬取信息 更新新闻数据库
         int pageSize = 10;
         int startPage = pageNo;//页码'

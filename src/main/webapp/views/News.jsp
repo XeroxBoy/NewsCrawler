@@ -45,33 +45,31 @@
         <li><a href="News.jsp">首页</a>
 
         </li>
-        <li><a href="MyInfo.jsp">我的信息</a>
+        <li><a href="/userInfo.do">我的信息</a>
 
         </li>
 
     </ul>
 </div>
 <%--嵌套两层循环输出新闻数据--%>
-<c:forEach items="${newsPage}" var="item">
-    <c:set var="index" value="0"/>
+    <c:set var="index" value="${newsPage.getCurrPage()}" />
     <c:forEach var="x" begin="0" end="9" step="1">
-        <a href="<c:out value="${item.getList().get(index).getResource()}"></c:out>">
-            <c:out value="${item.getList().get(index).getTitle()}"></c:out>
+        <a href=<c:out value="${newsPage.getList().get(index).getResource()}"></c:out>>
+            <c:out value="${newsPage.getList().get(index).getTitle()}"></c:out>
         </a>
-        <c:out value="          ${item.getList().get(index).getWriter()}"></c:out>
+        <c:out value="          ${newsPage.getList().get(index).getWriter()}"></c:out>
         <br>
-        <c:out value="${item.getList().get(index).getSummary()}"></c:out>
+        <c:out value="${newsPage.getList().get(index).getSummary()}"></c:out>
 
-        <c:out value="${item.getList().get(index).getTime()}"></c:out>
-        <c:set var="index" value="${index+1}"/>
+        <c:out value="${newsPage.getList().get(index).getTime()}"></c:out>
     </c:forEach>
-</c:forEach>
-<a href="News.jsp?pageNo=1">1</a>
-<a href="News.jsp?pageNo=2">2</a>
-<a href="News.jsp?pageNo=3">3</a>
-<a href="News.jsp?pageNo=4">4</a>
-<a href="News.jsp?pageNo=5">5</a>
-<a href="News.jsp?pageNo=6">6</a>
-<a href="News.jsp?pageNo=7">7</a>
+<div class="yahoo">
+	<c:set var="pageIndex" value="1" />
+	<c:forEach var="x" begin="1" end="${newsPage.getPageSize()}" step="1">
+	<c:out value="<a href='news/selectNews.do?pageNo=${pageIndex}'>${pageIndex}</a>"></c:out>
+	<c:set var="pageIndex" value="${pageIndex+1}" />
+	</c:forEach>
+
+</div>
 </body>
 </html>

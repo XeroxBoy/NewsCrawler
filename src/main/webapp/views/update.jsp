@@ -38,13 +38,13 @@
         <li><a href="News.jsp">首页</a>
 
         </li>
-        <li><a href="/userInfo.do">我的信息</a>
+        <li><a href="/userInfo">我的信息</a>
 
         </li>
 
     </ul>
 </div>
-<form class="login-form" method="POST"  action="/login/update.do">
+<form class="login-form" method="POST"  action="/user/update">
     <label>
         <input type="text" name="username" required placeholder="your Username">
     </label>

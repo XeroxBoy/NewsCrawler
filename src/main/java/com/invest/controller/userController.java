@@ -11,19 +11,20 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/user")
 public class userController {
     @Autowired
     private userService userService;
-
-    @RequestMapping("/user.do")
+    @RequestMapping("/login")
     public ModelAndView userLogin(@ModelAttribute User user, HttpSession session) {
         ModelAndView errorMav, mav;
+        User oriUser=null;
         String username = user.getUsername();
         String password = user.getPassword();
-        User oriUser = userService.selectUser(username);
-        if (oriUser.getPassword().equals(password)) { //密码输入正确
-            mav = new ModelAndView("redirect:/news/selectNews.do?pageNo=1");//跳转到用户界面
+        if(username!=null)
+            oriUser = userService.selectUser(username);
+        if (oriUser.getPassword().equals(password) && oriUser!=null) { //密码输入正确
+            mav = new ModelAndView("redirect:/news/selectNews?pageNo=1");//跳转到用户界面
             mav.addObject("name", username);
             mav.addObject("password", password);
             session.setAttribute("name", username);//把用户名保存在session中
@@ -35,7 +36,7 @@ public class userController {
         }
     }
 
-    @RequestMapping("/userInfo.do")
+    @RequestMapping("/userInfo")
     public ModelAndView userQuery(HttpSession session) {
         ModelAndView mav = new ModelAndView("views/MyInfo");
         User loginUser = userService.selectUser((String) session.getAttribute("name"));//从session中获取用户名并查询出信息
@@ -44,15 +45,16 @@ public class userController {
         return mav;
     }
 
-    @RequestMapping("/zhuce.do")
+
+    @RequestMapping("/zhuce")
     public ModelAndView userZhuce(@ModelAttribute User user) {
         ModelAndView errorMav, mav;
         String username = user.getUsername();
         String password = user.getPassword();
-        User testUser = userService.selectUser(username);
-        if (testUser != null) { //如果这个用户帐号没有被注册过
+        User testUser = userService.selectUser(username); //查出用户信息 看是否注册过了
+        if (testUser == null) { //如果这个用户帐号没有被注册过
             userService.insertUser(user);//注册成功
-            mav = new ModelAndView("views/index");//跳转到登录界面
+            mav = new ModelAndView("views/login");//跳转到登录界面
             return mav;
         } else {
             errorMav = new ModelAndView("views/zhuce");//跳转到注册界面
@@ -61,10 +63,10 @@ public class userController {
         }
     }
 
-    @RequestMapping("/update.do")
+    @RequestMapping("/update")
     public ModelAndView userUpdate(@ModelAttribute User user) {
         ModelAndView mav, errorMav;
-        mav = new ModelAndView("views/index");
+        mav = new ModelAndView("views/login");
         String username = user.getUsername();
         User testUser = userService.selectUser(username);//检查是否有该用户名，邮箱是否一致 若有 进行修改
         if (testUser == null || !testUser.getEmail().equals(user.getEmail())) {

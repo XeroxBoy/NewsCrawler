@@ -26,13 +26,14 @@ public class newsController {
     /*
     * 分页查询数据库中爬虫爬取的新闻
     * */
-    @RequestMapping("/selectNews.do")
+    @RequestMapping("/selectNews")
     public ModelAndView updateNewsByPage(@RequestParam("pageNo") int pageNo) {
         ModelAndView mav = new ModelAndView("views/News");
         this.crawlInfo();//爬取信息 更新新闻数据库
         int pageSize = 10;
         int startPage = pageNo;//页码'
         int totalnum = NewsService.selectTotalNum();//统计数据库中新闻的数量
+        if(totalnum==0) return new ModelAndView("views/login"); //如果没有记录 返回登陆页面
         int page = 1 + totalnum / 10;//一页显示10个新闻,总页数为page
         int restNews = totalnum % 10;//最后一页显示的新闻数
         newsPage<news> newsPage = NewsService.selectNewsByPage(startPage, pageSize);

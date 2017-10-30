@@ -26,7 +26,7 @@
 <section class="login-form-wrap">
     <h1>计蒜新闻</h1>
     <p>${msg}</p>
-    <form class="login-form" method="POST"  action="/login/zhuce.do">
+    <form class="login-form" method="POST"  action="/user/zhuce">
         <label>
             <input type="email" name="email" required placeholder="Email">
         </label>

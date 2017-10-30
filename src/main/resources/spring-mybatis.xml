@@ -17,19 +17,23 @@
     <!-- 配置数据源 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
+        <!--驱动名大小写居然搞错了 - -！ -->
         <property name="driverClass" value="${driver}" />
         <property name="jdbcUrl" value="${url}" />
-        <property name="user" value="${username}" />
-        <property name="password" value="${password}" />
+        <property name="user" value="root" />
+        <property name="password" value="daohaodegun" />
         <property name="minPoolSize" value="1" />
         <property name="maxPoolSize" value="20" />
         <property name="maxIdleTime" value="1800" />
+        <property name="acquireRetryDelay">
+            <value>100</value>
+        </property>
         <property name="acquireIncrement" value="2" />
         <property name="maxStatements" value="0" />
         <property name="initialPoolSize" value="2" />
         <property name="idleConnectionTestPeriod" value="1800" />
         <property name="acquireRetryAttempts" value="30" />
-        <property name="breakAfterAcquireFailure" value="true" />
+        <property name="breakAfterAcquireFailure" value="false" />
         <property name="testConnectionOnCheckout" value="false" />
     </bean>
     <!-- myBatis文件 -->

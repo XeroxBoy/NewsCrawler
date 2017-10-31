@@ -52,7 +52,7 @@
     </ul>
 </div>
 <%--嵌套两层循环输出新闻数据--%>
-    <c:set var="index" value="${newsPage.getCurrPage()}" />
+    <c:set var="index" value="${newsPage.getCurrPage()-1}" />
     <c:forEach var="x" begin="0" end="9" step="1">
         <a href=<c:out value="${newsPage.getList().get(index).getResource()}"></c:out>>
             <c:out value="${newsPage.getList().get(index).getTitle()}"></c:out>

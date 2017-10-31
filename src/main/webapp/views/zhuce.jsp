@@ -31,11 +31,11 @@
             <input type="email" name="email" required placeholder="Email">
         </label>
         <label>
-            <input type="text" name="username" required placeholder="your username">
+            <input type="text" name="username" required placeholder="your username" minlength="4">
         </label>
 
         <label>
-            <input type="password" name="password" required placeholder="Password">
+            <input type="password" name="password" required placeholder="Password" minlength="6" max="14">
         </label>
         <input type="submit" value="注册">
         <h5><a href="login.jsp">已有账号？</a></h5>

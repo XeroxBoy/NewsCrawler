@@ -38,15 +38,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <p>${msg}</p>
     <form class="login-form" method="POST"  action="/user/login">
         <label>
-            <input type="text" name="username" required placeholder="your Username">
+            <input type="text" name="username" required placeholder="your Username" minlength="4">
         </label>
         <label>
-            <input type="password" name="password" required placeholder="your Password">
+            <input type="password" name="password" required placeholder="your Password" minlength="6" maxlength="14">
         </label>
         <input type="submit" value="Login">
     </form>
-    <h5><a href="zhuce.jsp">还没有注册？</a></h5>
-    <h5><a href="update.jsp">忘记密码了？</a></h5>
+    <h5><a href="zhuce.jsp">还没有注册？</a><br><a href="update.jsp">忘记密码了？</a></h5>
+
 </section>
 
 </body>

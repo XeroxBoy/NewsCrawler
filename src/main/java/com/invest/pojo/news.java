@@ -19,6 +19,18 @@ public class news {
         this.title = title;
     }
 
+    @Override
+    public String toString() {
+        return "news{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", resource='" + resource + '\'' +
+                ", summary='" + summary + '\'' +
+                ", writer='" + writer + '\'' +
+                ", time='" + time + '\'' +
+                '}';
+    }
+
     public int getId() {
         return id;
     }

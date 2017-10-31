@@ -19,7 +19,7 @@
     <delete id="deleteNews" parameterType="java.lang.String">
   DELETE FROM news WHERE title=#{title}
  </delete>
-    <select id="selectTotalNum" parameterType="java.lang.Integer">
+    <select id="selectTotalNum"  resultType="java.lang.Integer">
     SELECT count(*) from news
  </select>
     <select id="selectNewsByPage" parameterType="java.lang.Integer" resultType="com.invest.pojo.news">
@@ -27,8 +27,9 @@
         <include refid="baseColumn"></include>
         FROM news
         ORDER BY id DESC
-        limit (#{startPage}*#{pageSize}),
-        #{pageSize}
+        <![CDATA[ LIMIT ${startPage*pageSize},
+       ${pageSize} ]]>
+
     </select>
 
 </mapper>

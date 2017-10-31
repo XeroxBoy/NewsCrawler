@@ -51,6 +51,7 @@ public class userController {
         ModelAndView errorMav, mav;
         String username = user.getUsername();
         String password = user.getPassword();
+
         User testUser = userService.selectUser(username); //查出用户信息 看是否注册过了
         if (testUser == null) { //如果这个用户帐号没有被注册过
             userService.insertUser(user);//注册成功

@@ -45,10 +45,13 @@ public class newsService {
     public newsPage<news> selectNewsByPage(int pageNo, int pageSize) {
         newsPage<news> page = new newsPage<>();
         page.setList(newsdao.selectNewsByPage(pageNo, pageSize));
-        page.setCurrPage(pageNo);
-        page.setPageSize(pageSize);
-        page.setTotalCount(this.selectTotalNum());
-        page.setTotalPage(this.selectTotalNum() / pageSize);
+        // List<news> newses = newsdao.selectNewsByPage(pageNo, pageSize);
+        //System.out.println(newses);
+
+        page.setCurrPage(pageNo + 1);//传过来的初始值是0
+        page.setPageSize(pageSize);//每页的数量
+        page.setTotalCount(this.selectTotalNum());//总记录数
+        page.setTotalPage(this.selectTotalNum() / pageSize + 1);//总页数
         return page;
     }
 }

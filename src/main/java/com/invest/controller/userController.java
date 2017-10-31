@@ -24,10 +24,11 @@ public class userController {
         if(username!=null)
             oriUser = userService.selectUser(username);
         if (oriUser.getPassword().equals(password) && oriUser!=null) { //密码输入正确
-            mav = new ModelAndView("redirect:/news/selectNews?pageNo=1");//跳转到用户界面
+            mav = new ModelAndView("redirect:/news/selectNews?pageNo=0");//跳转到用户界面
             mav.addObject("name", username);
             mav.addObject("password", password);
             session.setAttribute("name", username);//把用户名保存在session中
+            session.setAttribute("password",password);
             return mav;
         } else {
             errorMav = new ModelAndView("views/login");//信息错误 重新登录

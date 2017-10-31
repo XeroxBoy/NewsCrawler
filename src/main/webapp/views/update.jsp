@@ -38,7 +38,7 @@
         <li><a href="News.jsp">首页</a>
 
         </li>
-        <li><a href="/userInfo">我的信息</a>
+        <li><a href="user/userInfo">我的信息</a>
 
         </li>
 

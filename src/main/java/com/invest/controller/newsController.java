@@ -42,9 +42,14 @@ public class newsController {
         int startPage = pageNo;//页码'
         newsPage<news> newsPage = NewsService.selectNewsByPage(startPage, pageSize);
         // int lastIndex= newsPage.getTotalCount();
-        Integer date = Integer.valueOf(newsPage.getList().get(9).getTime().split("-")[1]);//类型转换
-        System.out.println(date + " " + thisMonth);
-        if (!date.equals(thisMonth)) {//查询的是这个月还没有爬取过的信息
+        int totalCount=newsPage.getTotalCount();//获取总记录数
+        int listIndex=totalCount%10;//避免访问的List下标越界
+        System.out.println(listIndex+"  "+totalCount+ thisMonth+newsPage.getList());
+        if(listIndex!=0)
+            listIndex=listIndex-1;
+        Integer date = Integer.valueOf(newsPage.getList().get(listIndex).getTime().split("-")[1]);//类型转换,取出一条新闻的日期,判断是不是这个月
+        System.out.println(date + " " );
+        if (!date.equals(thisMonth) && !date.equals(thisMonth-1)) {//查询的是这两个月还没有爬取过的信息
             System.out.println("进入爬虫");
             this.crawlInfo();//爬取信息 更新新闻数据库
         }

@@ -35,7 +35,7 @@
 
 <div class="header">
     <ul class="nav">
-        <li><a href="News.jsp">首页</a>
+        <li><a href="../news/selectNews?pageNo=0&name=${sessionScope.name }&password=${sessionScope.password }">首页</a>
 
         </li>
         <li><a href="user/userInfo">我的信息</a>

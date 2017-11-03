@@ -71,9 +71,12 @@
 </div>
 <%--嵌套两层循环输出新闻数据--%>
 <c:set var="index" value="0"/>
-<c:set var="totalPage" value="${newsPage.getTotalPage()}"></c:set>
-
-<c:forEach var="x" begin="0" end="9" step="1">
+<c:set var="totalPage" value="${sessionScope.totalPage}"></c:set>
+<c:set var="ender" value="9"></c:set>
+<c:if test="${sessionScope.currPage==totalPage}">
+    <c:set var="ender" value="${sessionScope.lastNewsNum}"></c:set>
+</c:if>
+<c:forEach var="x" begin="0" end="${ender}" step="1">
     <a target="_blank" href=<c:out value="${newsPage.getList().get(index).getResource()}"></c:out>>
        <h3><c:out value="${newsPage.getList().get(index).getTitle()}"></c:out>
            <small>
@@ -91,8 +94,8 @@
 </c:forEach>
 <div class="yahoo">
 
-        <c:forEach var="a" begin="1" end="${newsPage.getTotalPage()}" step="1">
-            <a href="http://localhost:8080/news/selectNews.do?pageNo=${a}&name=${sessionScope.name}&password=${sessionScope.password}">
+        <c:forEach var="a" begin="1" end="${sessionScope.totalPage}" step="1">
+            <a href="http://localhost:8080/news/selectNews.do?pageNo=${a-1}&name=${sessionScope.name}&password=${sessionScope.password}">
             <span style="font-size:medium">${a}</span></a>
         </c:forEach>
 

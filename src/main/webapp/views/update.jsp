@@ -5,56 +5,39 @@
 <html>
 <link rel="stylesheet" type="text/css" href="../css/style01.css">
 <link rel="stylesheet" type="text/css" href="../css/foot.css">
-<script type="text/javascript" src="../js/jquery.min.js"></script>
-<script type="text/javascript">
-    $(function(){
-        var _this1=null;
-        $('.nav>li').hover(function(){
-            _this1=$(this);
-            _this1.find('.second-nav').show();
-            var _this2=null;
-            _this1.find('.second-nav').find('li').hover(function(){
-                _this2=$(this);
-                _this2.find('.third-nav').show();
-                _this2.find('.third-nav').hover(function(){
-                    $(this).show();
-                },function(){
-                    $(this).hide();
-                });
-            },function(){
-                _this2.find('.third-nav').hide();
-            });
-        },function(){
-            _this1.find('.second-nav').hide();
-        });
-    });
-</script>
+<link rel="stylesheet" href="../css/normalize.css">
 
+<link rel="stylesheet" href="../css/style.css" media="screen" type="text/css" />
+
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>登录</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
+<section class="login-form-wrap">
+    <h1>计蒜新闻</h1>
+    <p>${msg}</p>
+    <form class="login-form" method="POST"  action="/user/update">
+        <label>
+            <input type="email" name="email" required placeholder="your Email" minlength="5" maxlength="20">
+        </label>
+        <label>
+            <input type="text" name="username" required placeholder="your Username" minlength="4">
+        </label>
+        <label>
+            <input type="password" name="password" required placeholder="your Password" minlength="6" maxlength="14">
+        </label>
+        <input type="submit" value="更新">
+    </form>
+    <h5><a href="zhuce.jsp">还没有注册？</a><p></p><a href="login.jsp">已有账号？</a></h5>
 
-<div class="header">
-    <ul class="nav">
-        <li><a href="../news/selectNews?pageNo=0&name=${sessionScope.name }&password=${sessionScope.password }">首页</a>
+</section>
 
-        </li>
-        <li><a href="userInfo">我的信息</a>
-
-        </li>
-
-    </ul>
-</div>
-<form class="login-form" method="POST"  action="/user/update">
-    <label>
-        <input type="text" name="username" required placeholder="your Username">
-    </label>
-    <label>
-        <input type="email" name="email" required placeholder="Confirm your password">
-    </label>
-    <label>
-        <input type="password" name="password" required placeholder="your Password">
-    </label>
-    <input type="submit" value="修改">
-</form>
 </body>
+
 </html>

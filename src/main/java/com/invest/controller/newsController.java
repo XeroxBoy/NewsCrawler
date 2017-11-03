@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * Created by AlexAnderIch on 2017/10/20.
@@ -35,32 +36,45 @@ public class newsController {
     @RequestMapping("/selectNews")
     public ModelAndView updateNewsByPage(@RequestParam("pageNo") int pageNo, HttpSession session) {
         ModelAndView mav = new ModelAndView("views/News");
-        session.setAttribute("inSearch",false);//设置状态 确认不在搜索页面中
-
-        // Date today=new Date();
-        //int thisMonth=today.getMonth();
+        session.setAttribute("inSearch", false);//设置状态 确认不在搜索页面中
+        newsPage<news> newsPage;
         Calendar today = Calendar.getInstance();
         int thisMonth = today.getTime().getMonth() + 1;//因为这个类的月份从0开始- -
         int pageSize = 10;//每页的大小
         int startPage = pageNo;//页码'
-        newsPage<news> newsPage = NewsService.selectNewsByPage(startPage, pageSize);
-        // int lastIndex= newsPage.getTotalCount();
-        int totalCount=newsPage.getTotalCount();//获取总记录数
-        int listIndex=totalCount%10;//避免访问的List下标越界
-        System.out.println(listIndex+"  "+totalCount+ thisMonth+newsPage.getList());
-        if(listIndex!=0)
-            listIndex=listIndex-1;
+        int totalnum = NewsService.selectTotalNum();//统计数据库中新闻的数量
+        int totalPage = totalnum / 10 ;//总页数
+        if(totalPage%10==0) {
+           newsPage = NewsService.selectNewsByPage(totalPage, pageSize);//从最新添加的新闻开始查
+        }
+        else {
+           newsPage = NewsService.selectNewsByPage(totalPage - 1, pageSize);//从最新添加的新闻开始查
+        }
+        int totalCount = newsPage.getTotalCount();//获取总记录数
+        int listIndex = totalCount % 10;//避免访问的List下标越界
+
+        if (listIndex != 0) {
+            listIndex = listIndex - 1;
+            totalPage++;//如果最后一位不是0 那么多出一页应该装不满10条的记录
+        }
+        System.out.println(listIndex + "  " + totalCount + thisMonth + newsPage.getList());
+
         Integer date = Integer.valueOf(newsPage.getList().get(listIndex).getTime().split("-")[1]);//类型转换,取出一条新闻的日期,判断是不是这个月
-        System.out.println(date + " " );
-        if (!date.equals(thisMonth) && !date.equals(thisMonth-1)) {//查询的是这两个月还没有爬取过的信息
+        System.out.println(date + " ");
+        if (!date.equals(thisMonth) && !date.equals(thisMonth - 1)) {//查询的是这两个月还没有爬取过的信息
             System.out.println("进入爬虫");
             this.crawlInfo();//爬取信息 更新新闻数据库
         }
-        int totalnum = NewsService.selectTotalNum();//统计数据库中新闻的数量
+        totalnum = NewsService.selectTotalNum();//更新统计中数据库中新闻的数量
+        int lastNewsNum = totalnum % 10;//最后一页应该显示的新闻数
+        totalPage=totalnum/10;//重新计算页数
+        if (totalnum%10 != 0) {
+            totalPage++;//如果最后一位不是0 那么多出一页应该装不满10条的记录
+        }
+        newsPage = NewsService.selectNewsByPage(startPage, pageSize);//再从最早的新闻开始查询
         if (totalnum == 0) return new ModelAndView("views/login"); //如果没有记录 返回登陆页面
-        // int page = 1 + totalnum / 10;//一页显示10个新闻,总页数为page
-        //int restNews = totalnum % 10;//最后一页显示的新闻数
-//        newsPage<news> newsPage = NewsService.selectNewsByPage(startPage, pageSize);
+        session.setAttribute("totalPage", totalPage);
+        session.setAttribute("lastNewsNum", lastNewsNum);//将这俩个信息保存在session中
         mav.addObject(newsPage);
         session.setAttribute("currPage", pageNo);//在session中保存当前的页数
         return mav;
@@ -111,13 +125,14 @@ public class newsController {
         }
 
     }
+
     /*
     * 搜索新闻
     *
     * */
     @RequestMapping("search")
-    public ModelAndView searchNews(HttpSession session,@RequestParam("key") String key){
-        ModelAndView mav=new ModelAndView("views/News");
+    public ModelAndView searchNews(HttpSession session, @RequestParam("key") String key) {
+        ModelAndView mav = new ModelAndView("views/News");
         newsPage<news> newsPage = NewsService.searchNews(key, session);//搜索信息
         mav.addObject(newsPage);
         return mav;

@@ -35,6 +35,8 @@ public class newsController {
     @RequestMapping("/selectNews")
     public ModelAndView updateNewsByPage(@RequestParam("pageNo") int pageNo, HttpSession session) {
         ModelAndView mav = new ModelAndView("views/News");
+        session.setAttribute("inSearch",false);//设置状态 确认不在搜索页面中
+
         // Date today=new Date();
         //int thisMonth=today.getMonth();
         Calendar today = Calendar.getInstance();
@@ -114,8 +116,10 @@ public class newsController {
     *
     * */
     @RequestMapping("search")
-    public ModelAndView searchNews(){
+    public ModelAndView searchNews(HttpSession session,@RequestParam("key") String key){
         ModelAndView mav=new ModelAndView("views/News");
+        newsPage<news> newsPage = NewsService.searchNews(key, session);//搜索信息
+        mav.addObject(newsPage);
         return mav;
     }
 }

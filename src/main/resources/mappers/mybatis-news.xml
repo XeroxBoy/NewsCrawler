@@ -31,9 +31,12 @@
        ${pageSize} ]]>
 
     </select>
-    <select id="searchNews" parameterType="java.lang.String" resultType="com.invest.pojo.news">
+    <select id="searchNews"  resultType="com.invest.pojo.news">
 
-
+    select <include refid="baseColumn"></include>
+        FROM news
+        WHERE title LIKE #{title}
+        LIMIT ${startPage*10},10
     </select>
 
 </mapper>

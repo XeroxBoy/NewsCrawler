@@ -5,6 +5,8 @@
 <html>
 <link rel="stylesheet" type="text/css" href="../css/style01.css">
 <link rel="stylesheet" type="text/css" href="../css/foot.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript">
     $(function(){
@@ -35,18 +37,20 @@
 
 <div class="header">
     <ul class="nav">
-        <li><a href="../news/selectNews?pageNo=0&name=${sessionScope.name }&password=${sessionScope.password }">首页</a>
+        <li><a href="selectNews?pageNo=0&name=${sessionScope.name}&password=${sessionScope.password}"><span style="font-size: large">首页</span></a>
 
         </li>
-        <li><a href="user/userInfo">我的信息</a>
+        <li><a href="../user/userInfo"><span style="font-size: large">我的信息</span></a>
 
         </li>
+
 
     </ul>
 </div>
 
-${user.email}<br>
-${user.password}<br>
-${user.username}<br>
+<span style="font-size: medium">${user.email}</span><br>
+<span style="font-size: medium">${user.password}</span><br>
+<span style="font-size: medium">${user.username}</span><br>
+<a href="../user/update" style="font-size: medium">修改个人信息？</a>
 </body>
 </html>

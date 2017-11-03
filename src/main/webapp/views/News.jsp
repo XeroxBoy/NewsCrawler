@@ -42,10 +42,10 @@
 
 <div class="header">
     <ul class="nav">
-        <li><a href="selectNews?pageNo=0&name=${sessionScope.name}&password=${sessionScope.password}">首页</a>
+        <li><a href="selectNews?pageNo=0&name=${sessionScope.name}&password=${sessionScope.password}"><span style="font-size: large">首页</span></a>
 
         </li>
-        <li><a href="../user/userInfo">我的信息</a>
+        <li><a href="../user/userInfo"><span style="font-size: large">我的信息</span></a>
 
         </li>
 
@@ -57,20 +57,21 @@
 
 <c:forEach var="x" begin="0" end="9" step="1">
     <a href=<c:out value="${newsPage.getList().get(index).getResource()}"></c:out>>
-        <c:out value="${newsPage.getList().get(index).getTitle()}"></c:out>
+       <h3><c:out value="${newsPage.getList().get(index).getTitle()}"></c:out></h3>
     </a>
-    <c:out value="          ${newsPage.getList().get(index).getWriter()}"></c:out>
+    <span style="font-family: 'Microsoft YaHei UI';font-size: large"><c:out value="          ${newsPage.getList().get(index).getWriter()}"></c:out></span>
     <br>
-    <c:out value="${newsPage.getList().get(index).getSummary()}"></c:out>
+    <span style="font-size: medium"><c:out value="${newsPage.getList().get(index).getSummary()}"></c:out></span>
     <br>
-    <c:out value="${newsPage.getList().get(index).getTime()}"></c:out>
+   <span style="background-color: #cecece"> <c:out value="${newsPage.getList().get(index).getTime()}"></c:out></span>
     <br>
     <c:set var="index" value="${index+1}"></c:set>
 </c:forEach>
 <div class="yahoo">
 
         <c:forEach var="a" begin="1" end="${newsPage.getTotalPage()}" step="1">
-            <a href="http://localhost:8080/news/selectNews.do?pageNo=${a}&name=${sessionScope.name}&password=${sessionScope.password}">${a}</a>
+            <a href="http://localhost:8080/news/selectNews.do?pageNo=${a}&name=${sessionScope.name}&password=${sessionScope.password}">
+            <span style="font-size:medium">${a}</span></a>
         </c:forEach>
 
 </div>

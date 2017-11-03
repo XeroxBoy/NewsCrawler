@@ -12,7 +12,10 @@
 <html>
 <link rel="stylesheet" type="text/css" href="../css/style01.css">
 <link rel="stylesheet" type="text/css" href="../css/foot.css">
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script type="text/javascript" src="../js/jquery.min.js"></script>
+
 <script type="text/javascript">
     $(function () {
         var _this1 = null;
@@ -36,7 +39,15 @@
         });
     });
 </script>
+<style >
+    .bar5 {background: #683B4D;}
+    .bar5 input, .bar5 button { background: transparent; }
+    .bar5 input { border: 2px solid #F9F0DA; }
+    .bar5 button { position:relative;top:0px; left:100px; }
+    .bar5 button:before { content: "\f002"; font-family: FontAwesome; font-size: 12px; color: #F9F0DA; }
+    .bar5 input:focus { border-color: #311c24 }
 
+</style>
 </head>
 <body style="background-color:white">
 
@@ -49,6 +60,13 @@
 
         </li>
 
+            <div> <form>
+                <li><input type="text" style="position:relative;top:-10px;height: 35px;width: 180px;" placeholder="请输入您要搜索的内容..."></li>
+                <li><button type="submit" class="btn btn-default" style="position:relative;top:-20px;left:10px;height: 35px;width: 75px;vertical-align: text-top">搜索</button> </li></form>
+            </div>
+
+        </li>
+
     </ul>
 </div>
 <%--嵌套两层循环输出新闻数据--%>
@@ -56,12 +74,16 @@
 <c:set var="totalPage" value="${newsPage.getTotalPage()}"></c:set>
 
 <c:forEach var="x" begin="0" end="9" step="1">
-    <a href=<c:out value="${newsPage.getList().get(index).getResource()}"></c:out>>
-       <h3><c:out value="${newsPage.getList().get(index).getTitle()}"></c:out></h3>
+    <a target="_blank" href=<c:out value="${newsPage.getList().get(index).getResource()}"></c:out>>
+       <h3><c:out value="${newsPage.getList().get(index).getTitle()}"></c:out>
+           <small>
+               <c:out value="          ${newsPage.getList().get(index).getWriter()}"></c:out>
+           </small>
+       </h3>
     </a>
-    <span style="font-family: 'Microsoft YaHei UI';font-size: large"><c:out value="          ${newsPage.getList().get(index).getWriter()}"></c:out></span>
-    <br>
-    <span style="font-size: medium"><c:out value="${newsPage.getList().get(index).getSummary()}"></c:out></span>
+
+
+    <span style="font-size: medium" class="lead"><c:out value="${newsPage.getList().get(index).getSummary()}"></c:out></span>
     <br>
    <span style="background-color: #cecece"> <c:out value="${newsPage.getList().get(index).getTime()}"></c:out></span>
     <br>

@@ -18,4 +18,5 @@ public interface newsDao {
     public news selectNews(int id);
     public List<news> selectNewsByPage(@Param("startPage") int startPage, @Param("pageSize") int pageSize);
     public int selectTotalNum();//查询新闻总数
+    public List<news> searchNews(@Param("keyWord") String key);//搜索新闻
 }

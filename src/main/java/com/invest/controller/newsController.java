@@ -8,6 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.invest.service.newsService;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -107,6 +108,15 @@ public class newsController {
             e.printStackTrace();
         }
 
+    }
+    /*
+    * 搜索新闻
+    *
+    * */
+    @RequestMapping("search")
+    public ModelAndView searchNews(){
+        ModelAndView mav=new ModelAndView("views/News");
+        return mav;
     }
 }
 

@@ -33,11 +33,11 @@
 </script>
 
 </head>
-<body style="background-color: #5670a4">
+<body style="background-color: whitesmoke">
 
 <div class="header">
     <ul class="nav">
-        <li><a href="selectNews?pageNo=0&name=${sessionScope.name}&password=${sessionScope.password}"><span style="font-size: large">首页</span></a>
+        <li><a href="../news/selectNews?pageNo=0&name=${sessionScope.name}&password=${sessionScope.password}"><span style="font-size: large">首页</span></a>
 
         </li>
         <li><a href="../user/userInfo"><span style="font-size: large">我的信息</span></a>
@@ -51,6 +51,6 @@
 <span style="font-size: medium">${user.email}</span><br>
 <span style="font-size: medium">${user.password}</span><br>
 <span style="font-size: medium">${user.username}</span><br>
-<a href="../user/update" style="font-size: medium">修改个人信息？</a>
+<a href="../views/update.jsp" style="font-size: medium">修改个人信息？</a>
 </body>
 </html>

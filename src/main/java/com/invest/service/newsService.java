@@ -3,6 +3,7 @@ package com.invest.service;
 import com.invest.dao.newsDao;
 import com.invest.page.newsPage;
 import com.invest.pojo.news;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,6 +53,18 @@ public class newsService {
         page.setPageSize(pageSize);//每页的数量
         page.setTotalCount(this.selectTotalNum());//总记录数
         page.setTotalPage(this.selectTotalNum() / pageSize + 1);//总页数
+        return page;
+    }
+    //搜索新闻
+    public newsPage<news> searchNews(String key){
+        newsPage<news> page = new newsPage<>();
+        page.setList(newsdao.searchNews(key));
+        page.setCurrPage(1);
+        page.setPageSize(10);
+        int size=newsdao.searchNews(key).size();
+        if(size==0) return null;//如果没有查询结果 返回null
+        page.setTotalCount(size);
+        page.setTotalPage(size/10+1);
         return page;
     }
 }

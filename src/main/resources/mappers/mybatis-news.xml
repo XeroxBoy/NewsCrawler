@@ -31,5 +31,9 @@
        ${pageSize} ]]>
 
     </select>
+    <select id="searchNews" parameterType="java.lang.String" resultType="com.invest.pojo.news">
+
+
+    </select>
 
 </mapper>

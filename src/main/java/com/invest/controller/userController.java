@@ -21,11 +21,11 @@ public class userController {
         ModelAndView errorMav, mav;
         User oriUser=null;
         String username = user.getUsername();
-        try {
-            username = new String(username.getBytes("ISO-8859-1"), "utf-8");//转码
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            username = new String(username.getBytes("ISO-8859-1"), "utf-8");//转码
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
         String password = user.getPassword();
         if(username!=null)
             oriUser = userService.selectUser(username);

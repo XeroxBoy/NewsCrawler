@@ -135,11 +135,11 @@ public class newsController {
     public ModelAndView searchNews(HttpSession session, @RequestParam("key") String key) {
         ModelAndView errormav=new ModelAndView("views/News");
         ModelAndView mav = new ModelAndView("views/News");
-        try {
-            key = new String(key.getBytes("ISO-8859-1"), "utf-8");//转码
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            key = new String(key.getBytes("ISO-8859-1"), "utf-8");//转码
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
 
         newsPage<news> newsPage = NewsService.searchNews(key, session);//搜索信息
         if(newsPage==null || newsPage.getList().get(0)==null) return errormav;//没有查询出结果来

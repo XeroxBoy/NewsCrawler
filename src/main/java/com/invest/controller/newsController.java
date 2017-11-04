@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -132,8 +133,16 @@ public class newsController {
     * */
     @RequestMapping("search")
     public ModelAndView searchNews(HttpSession session, @RequestParam("key") String key) {
+        ModelAndView errormav=new ModelAndView("views/News");
         ModelAndView mav = new ModelAndView("views/News");
+        try {
+            key = new String(key.getBytes("ISO-8859-1"), "utf-8");//转码
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         newsPage<news> newsPage = NewsService.searchNews(key, session);//搜索信息
+        if(newsPage==null || newsPage.getList().get(0)==null) return errormav;//没有查询出结果来
         mav.addObject(newsPage);
         return mav;
     }

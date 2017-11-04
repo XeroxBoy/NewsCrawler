@@ -53,15 +53,15 @@
 
 <div class="header">
     <ul class="nav">
-        <li><a href="selectNews?pageNo=0&name=${sessionScope.name}&password=${sessionScope.password}"><span style="font-size: large">首页</span></a>
+        <li><a href="selectNews?pageNo=0&name=${sessionScope.name}"><span style="font-size: large">首页</span></a>
 
         </li>
         <li><a href="../user/userInfo"><span style="font-size: large">我的信息</span></a>
 
         </li>
 
-            <div> <form>
-                <li><input type="text" style="position:relative;top:-10px;height: 35px;width: 180px;" placeholder="请输入您要搜索的内容..."></li>
+            <div> <form action="search" method="post">
+                <li><input type="text" name="key" style="position:relative;top:-10px;height: 35px;width: 180px;" placeholder="请输入您要搜索的内容..."></li>
                 <li><button type="submit" class="btn btn-default" style="position:relative;top:-20px;left:10px;height: 35px;width: 75px;vertical-align: text-top">搜索</button> </li></form>
             </div>
 

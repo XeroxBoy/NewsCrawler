@@ -6,6 +6,11 @@
         <!-- 使用jdbc的getGeneratedKeys获取数据库自增主键值 -->
         <setting name="useGeneratedKeys" value="true" />
 
+            <!-- 打印查询语句 -->
+<!--
+            <setting name="logImpl" value="STDOUT_LOGGING" />
+-->
+
         <!-- 使用列别名替换列名 默认:true -->
         <setting name="useColumnLabel" value="true" />
 

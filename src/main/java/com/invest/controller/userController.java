@@ -88,4 +88,11 @@ public class userController {
         mav.addObject("msg", "修改成功!");
         return mav;
     }
+    /*
+    * 头像上传
+    * */
+    @RequestMapping("/upload")
+    public ModelAndView userUpload(){
+        return null;
+    }
 }

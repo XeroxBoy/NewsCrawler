@@ -6,10 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.invest.service.*;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 
 @Controller
 @RequestMapping("/user")
@@ -92,7 +94,18 @@ public class userController {
     * 头像上传
     * */
     @RequestMapping("/upload")
-    public ModelAndView userUpload(){
-        return null;
+    public ModelAndView userUpload(@RequestParam("file") CommonsMultipartFile file,@ModelAttribute("user") User user) throws IOException{
+        InputStream in=file.getInputStream();//获取输入流
+        OutputStream out=new FileOutputStream("E:/icon/"+user.getUsername());
+        int temp=in.read();
+        while(temp!=-1){
+            out.write(temp);
+            temp=in.read();
+        }
+        out.flush();
+        out.close();
+        in.close();
+
+        return new ModelAndView("views/MyInfo");
     }
 }

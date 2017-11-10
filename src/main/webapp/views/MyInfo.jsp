@@ -48,9 +48,16 @@
     </ul>
 </div>
 
-<span style="font-size: medium">${user.email}</span><br>
-<span style="font-size: medium">${user.password}</span><br>
-<span style="font-size: medium">${user.username}</span><br>
+
+<form style="margin-left: 10px;margin-right: 10px"  action="/user/update" method="post" role="form" enctype="multipart/form-data">
+    <div class="input-group" style="font-size: medium">
+        <label>头像:</label><input type="file" name="file" /><img src="pic/${user.username}.jpg" onerror="this.style.display='E:/icon/moren.jpg'" /><br>
+        <label>用户名: </label><input name="username" type="text" readonly="readonly"
+                                   value='${user.username}'  required /><br> <br>
+        <label>邮箱:</label><input type="email" value='${user.email}' name="email" required >
+        <br> <br><label> 密码:</label> <input type="password" name="password"  value='${user.password}' required />
+    </div>
+</form>
 <a href="../views/update.jsp" style="font-size: medium">修改个人信息？</a>
 </body>
 </html>

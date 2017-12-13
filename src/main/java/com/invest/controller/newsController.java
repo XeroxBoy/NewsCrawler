@@ -40,20 +40,27 @@ public class newsController {
         session.setAttribute("inSearch", false);//设置状态 确认不在搜索页面中
         newsPage<news> newsPage;
         Calendar today = Calendar.getInstance();
-        int thisMonth = today.getTime().getMonth() + 1;//因为这个类的月份从0开始- -
+        Integer thisMonth = today.getTime().getMonth() + 1;//因为这个类的月份从0开始- -
         int pageSize = 10;//每页的大小
         int startPage = pageNo;//页码'
-        int totalnum = NewsService.selectTotalNum();//统计数据库中新闻的数量
-        int totalPage = totalnum / 10 ;//总页数
-        if(totalPage%10==0) {
+
+     /*   if(totalPage%10==0) {
            newsPage = NewsService.selectNewsByPage(totalPage, pageSize);//从最新添加的新闻开始查
         }
         else {
            newsPage = NewsService.selectNewsByPage(totalPage - 1, pageSize);//从最新添加的新闻开始查
+        }*/
+        newsPage=NewsService.selectNewsByPage(0,pageSize);
+        boolean haveCrawl=false;
+        if(newsPage.getList().isEmpty()){
+            this.crawlInfo();//进入爬虫
+            newsPage=NewsService.selectNewsByPage(0,pageSize);
+            haveCrawl=true;
         }
         int totalCount = newsPage.getTotalCount();//获取总记录数
         int listIndex = totalCount % 10;//避免访问的List下标越界
-
+        int totalnum = NewsService.selectTotalNum();//统计数据库中新闻的数量
+        int totalPage = totalnum / 10-1 ;//总页数
         if (listIndex != 0) {
             listIndex = listIndex - 1;
             totalPage++;//如果最后一位不是0 那么多出一页应该装不满10条的记录
@@ -62,9 +69,12 @@ public class newsController {
 
         Integer date = Integer.valueOf(newsPage.getList().get(listIndex).getTime().split("-")[1]);//类型转换,取出一条新闻的日期,判断是不是这个月
         System.out.println(date + " ");
-        if (!date.equals(thisMonth) && !date.equals(thisMonth - 1)) {//查询的是这两个月还没有爬取过的信息
-            System.out.println("进入爬虫");
-            this.crawlInfo();//爬取信息 更新新闻数据库
+        if(!haveCrawl) {
+            if (!date.equals(thisMonth) && !date.equals(thisMonth - 1) && !thisMonth.equals((date + 1) % 12)) {//查询的是这两个月还没有爬取过的信息
+
+                System.out.println("进入爬虫");
+                this.crawlInfo();//爬取信息 更新新闻数据库
+            }
         }
         totalnum = NewsService.selectTotalNum();//更新统计中数据库中新闻的数量
         int lastNewsNum = totalnum % 10;//最后一页应该显示的新闻数

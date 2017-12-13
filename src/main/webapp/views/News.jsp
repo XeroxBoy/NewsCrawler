@@ -59,6 +59,7 @@
         <li><a href="../user/userInfo"><span style="font-size: large">我的信息</span></a>
 
         </li>
+        <li><a href="../views/login.jsp"><span style="font-size: large">登出</span></a></li>
 
             <div> <form action="search" method="post">
                 <li><input type="text" name="key" style="position:relative;top:-10px;height: 35px;width: 180px;" placeholder="请输入您要搜索的内容..."></li>
@@ -71,11 +72,12 @@
 </div>
 <%--嵌套两层循环输出新闻数据--%>
 <c:set var="index" value="0"/>
-<c:set var="totalPage" value="${sessionScope.totalPage}"></c:set>
+<c:set var="totalPage" value="${sessionScope.totalPage-1}"></c:set>
 <c:set var="ender" value="9"></c:set>
-<c:if test="${sessionScope.currPage==totalPage}">
-    <c:set var="ender" value="${sessionScope.lastNewsNum}"></c:set>
+<c:if test="${sessionScope.currPage eq totalPage}">
+    <c:set var="ender" value="${sessionScope.lastNewsNum-1}"></c:set>
 </c:if>
+
 <c:forEach var="x" begin="0" end="${ender}" step="1">
     <a target="_blank" href=<c:out value="${newsPage.getList().get(index).getResource()}"></c:out>>
        <h3><c:out value="${newsPage.getList().get(index).getTitle()}"></c:out>

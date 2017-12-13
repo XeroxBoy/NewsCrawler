@@ -32,6 +32,17 @@
     });
 </script>
 
+<script type="text/javascript">
+    window.onload = function () {
+        var a = document.getElementsByTagName("img");
+        for(var i = 0, len = a.length; i < len; i++){
+            a[i].src= decodeURI(a[i].src).replace("%","-");
+        }
+
+
+    }
+
+</script>
 </head>
 <body style="background-color: whitesmoke">
 
@@ -43,21 +54,21 @@
         <li><a href="../user/userInfo"><span style="font-size: large">我的信息</span></a>
 
         </li>
-
+        <li><a href="../views/login.jsp"><span style="font-size: large">登出</span></a></li>
 
     </ul>
 </div>
 
 
-<form style="margin-left: 10px;margin-right: 10px"  action="/user/update" method="post" role="form" enctype="multipart/form-data">
-    <div class="input-group" style="font-size: medium">
-        <label>头像:</label><input type="file" name="file" /><img src="pic/${user.username}.jpg" onerror="this.style.display='E:/icon/moren.jpg'" /><br>
-        <label>用户名: </label><input name="username" type="text" readonly="readonly"
-                                   value='${user.username}'  required /><br> <br>
-        <label>邮箱:</label><input type="email" value='${user.email}' name="email" required >
-        <br> <br><label> 密码:</label> <input type="password" name="password"  value='${user.password}' required />
-    </div>
+<form class="input-group" style="margin-left: 10px;margin-right: 10px"  action="/user/upload" method="post" role="form" enctype="multipart/form-data">
+        <label>修改您的头像:</label><input type="file" name="file" /> <br><img src="../pic/${sessionScope.name}.jpg" onerror="javascript:this.src='../pic/moren.jpg';alt='pic'" /><br>
+    <input value="上传" type="submit">
 </form>
+<div class="input-group" style="font-size: medium">
+        <label>用户名: </label><input name="username" type="text" readonly="readonly"
+                                   value='${sessionScope.name}'  /><br> <br>
+        <label>邮箱:</label><input type="email" value='${sessionScope.email}' name="email" readonly="readonly"  >
+    </div>
 <a href="../views/update.jsp" style="font-size: medium">修改个人信息？</a>
 </body>
 </html>

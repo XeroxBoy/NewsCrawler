@@ -38,6 +38,7 @@ public class userController {
             mav.addObject("name", username);
             //mav.addObject("password", password);
             session.setAttribute("name", username);//把用户名保存在session中
+            session.setAttribute("email",oriUser.getEmail());
            // session.setAttribute("password",password);
             return mav;
         } else {
@@ -94,17 +95,14 @@ public class userController {
     * 头像上传
     * */
     @RequestMapping("/upload")
-    public ModelAndView userUpload(@RequestParam("file") CommonsMultipartFile file,@ModelAttribute("user") User user) throws IOException{
-        InputStream in=file.getInputStream();//获取输入流
-        OutputStream out=new FileOutputStream("E:/icon/"+user.getUsername());
-        int temp=in.read();
-        while(temp!=-1){
-            out.write(temp);
-            temp=in.read();
+    public ModelAndView userUpload(@RequestParam("file") CommonsMultipartFile file,HttpSession session) throws IOException{
+        try {
+            File newFile=new File("E:/icon/"+ session.getAttribute("name") +".jpg");
+            file.transferTo(newFile);//CommonsFile的上传方法
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        out.flush();
-        out.close();
-        in.close();
 
         return new ModelAndView("views/MyInfo");
     }

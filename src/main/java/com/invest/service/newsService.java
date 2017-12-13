@@ -60,18 +60,19 @@ public class newsService {
     public newsPage<news> searchNews(String key, HttpSession session){
         newsPage<news> page = new newsPage<>();
         int startPage=0;//一开始设置startPage=0,即是第一次点击搜索框的状态
-        if(session.getAttribute("inSearch")==true) {
+        if(session.getAttribute("inSearch").equals(true)) {
             startPage = (int) session.getAttribute("currPage");//如果在搜索状态中 那么从currPage中提取值
         }
 
         session.setAttribute("inSearch",true);//设置状态 确认在搜索页面中
-        page.setList(newsdao.searchNews(key,startPage));
+        List<news> newses = newsdao.searchNews(key, startPage);
+        page.setList(newses);
         page.setCurrPage(1);
-        page.setPageSize(10);
-        int size=newsdao.searchNews(key,startPage).size();
+        int size= newses.size();
         if(size==0) return null;//如果没有查询结果 返回null
+        page.setPageSize(size);
         page.setTotalCount(size);
-        page.setTotalPage(size/10+1);
+        page.setTotalPage(1);
         return page;
     }
 }

@@ -142,11 +142,16 @@ public class newsController {
     *
     * */
     @RequestMapping("search")
-    public ModelAndView searchNews(HttpSession session, @RequestParam("key") String key) {
+    public ModelAndView searchNews(HttpSession session, @RequestParam("key") String key) { //显示在一页内
         ModelAndView errormav=new ModelAndView("views/News");
         ModelAndView mav = new ModelAndView("views/News");
         newsPage<news> newsPage = NewsService.searchNews(key, session);//搜索信息
         if(newsPage==null || newsPage.getList().get(0)==null) return errormav;//没有查询出结果来
+
+        session.setAttribute("lastNewsNum", newsPage.getList().size());//将这俩个信息保存在session中
+        session.setAttribute("currPage",0);//将这俩个信息保存在session中
+        session.setAttribute("totalPage",1);//将这俩个信息保存在session中
+
         mav.addObject(newsPage);
         return mav;
     }

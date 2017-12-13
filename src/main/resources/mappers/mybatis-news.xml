@@ -36,7 +36,7 @@
     select <include refid="baseColumn"></include>
         FROM news
         WHERE title LIKE CONCAT('%',#{key},'%')
-        LIMIT ${startPage*10},10
+        LIMIT ${startPage*10},100
     </select>
 
 </mapper>

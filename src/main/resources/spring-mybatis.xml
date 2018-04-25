@@ -58,6 +58,7 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
+    <import resource="classpath:spring-redis.xml"/>
 
 
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">

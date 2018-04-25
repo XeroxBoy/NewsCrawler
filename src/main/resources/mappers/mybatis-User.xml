@@ -4,7 +4,10 @@
     <sql id="baseColumn">
 username,password,email
 </sql>
-    <select id="selectUser" parameterType="java.lang.String" resultType="com.invest.pojo.User">
+    <!-- 缓存类配置 -->
+    <cache type="com.invest.redis.RedisCache" />
+
+    <select id="selectUser" parameterType="java.lang.String" resultType="com.invest.pojo.User" useCache="true">
         select <include refid="baseColumn"></include>
         from newuser where username=#{username}
     </select>

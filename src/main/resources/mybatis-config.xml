@@ -9,7 +9,8 @@
             <!-- 打印查询语句 -->
 <!--
             <setting name="logImpl" value="STDOUT_LOGGING" />
--->
+-->        <setting name="cacheEnabled" value="true"/>
+
 
         <!-- 使用列别名替换列名 默认:true -->
         <setting name="useColumnLabel" value="true" />

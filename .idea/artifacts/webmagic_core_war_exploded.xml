@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="webmagic-core:war exploded">
-    <output-path>$PROJECT_DIR$/target/SpringMvcTest</output-path>
+    <output-path>$PROJECT_DIR$/out/artifacts/webmagic_core_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -46,9 +46,6 @@
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
           <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.8.3" />
         </element>
-      </element>
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/SpringMvcTest/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="webmagic-core/web/Web" />
     </root>

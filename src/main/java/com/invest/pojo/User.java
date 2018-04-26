@@ -1,7 +1,10 @@
 package com.invest.pojo;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String username;
+    private static final long serialVersionUID = -1695973853274402680L;
 
     public String getUsername() {
         return username;

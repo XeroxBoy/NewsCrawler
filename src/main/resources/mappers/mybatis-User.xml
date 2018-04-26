@@ -5,7 +5,9 @@
 username,password,email
 </sql>
     <!-- 缓存类配置 -->
-    <cache type="com.invest.redis.RedisCache" />
+<!--
+<cache type="com.invest.redis.RedisCache"></cache>
+-->
 
     <select id="selectUser" parameterType="java.lang.String" resultType="com.invest.pojo.User" useCache="true">
         select <include refid="baseColumn"></include>

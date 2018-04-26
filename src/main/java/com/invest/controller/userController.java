@@ -1,8 +1,11 @@
 package com.invest.controller;
 
 import com.invest.pojo.User;
+import com.invest.redis.RedisCache;
+import com.invest.redis.SerializeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.invest.service.*;
@@ -14,10 +17,12 @@ import javax.servlet.http.HttpSession;
 import java.io.*;
 
 @Controller
+@ContextConfiguration(value = {"classpath:*.xml"})
 @RequestMapping("/user")
 public class userController {
     @Autowired
     private userService userService;
+
     @RequestMapping("/login")
     public ModelAndView userLogin(@ModelAttribute User user, HttpSession session) {
         ModelAndView errorMav, mav;
@@ -28,6 +33,22 @@ public class userController {
 //        } catch (UnsupportedEncodingException e) {
 //            e.printStackTrace();
 //        }
+
+
+        User user1=new User();
+        user1.setEmail("123@qq.com");
+        user1.setPassword("daohaode");
+        user1.setUsername("abc");
+        RedisCache cache = new RedisCache("1");
+        cache.putObject("1", user1);
+
+        User uu=(User) cache.getObject("1");
+
+
+        System.out.println(uu.getEmail()+" "+uu.getUsername()+" "+uu.getPassword());
+        System.out.println();
+        System.out.println();
+
         String password = user.getPassword();
         if(username!=null)
             oriUser = userService.selectUser(username);

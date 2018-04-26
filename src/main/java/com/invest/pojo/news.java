@@ -1,9 +1,11 @@
 package com.invest.pojo;
 
+import java.io.Serializable;
+
 /**
  * Created by AlexAnderIch on 2017/10/17.
  */
-public class news {
+public class news implements Serializable{
     private int id;//新闻id 主键
     private String title;//新闻标题
     private String resource;//新闻链接

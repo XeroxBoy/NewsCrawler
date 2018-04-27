@@ -73,8 +73,16 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
+    <!--<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:ehcache.xml" />
+        <property name="shared" value="true"></property> &lt;!&ndash; 这里是关键！！！没有必错  &ndash;&gt;
 
-
+    </bean>
+    &lt;!&ndash; 缓存管理器 使用Ehcache实现 &ndash;&gt;
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManager" ref="ehCacheManager" />
+    </bean>
+-->
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg index="0" ref="sqlSessionFactory" />
         <constructor-arg index="1" value="BATCH" />

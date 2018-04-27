@@ -5,9 +5,7 @@
 username,password,email
 </sql>
     <!-- 缓存类配置 -->
-<!--
-<cache type="com.invest.redis.RedisCache"></cache>
--->
+<cache eviction="LRU" type="com.invest.redis.RedisCache"></cache>
 
     <select id="selectUser" parameterType="java.lang.String" resultType="com.invest.pojo.User" useCache="true">
         select <include refid="baseColumn"></include>
@@ -22,4 +20,11 @@ update newuser set password=#{password},email=#{email} where username=#{username
     <delete id="deleteUser">
 delete from newuser where username=#{username}
 </delete>
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" >
+        <property name="timeToIdleSeconds" value="3600"/>
+        <property name="timeToLiveSeconds" value="3600"/>
+        <property name="maxEntriesLocalHeap" value="1000"/>
+        <property name="maxEntriesLocalDisk" value="10000000"/>
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </cache>
 </mapper>

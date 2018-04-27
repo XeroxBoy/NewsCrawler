@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+
+
+  http://www.springframework.org/schema/context
+  http://www.springframework.org/schema/context/spring-context-4.2.xsd
+  http://www.springframework.org/schema/mvc
+  http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+
+    <bean id="SecurityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+
+    </bean>
+<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+<property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
+</bean>
+    <bean id="realm" class="com.invest.realm.shiroRealm">
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher"><property name="hashAlgorithmName" value="MD5"></property></bean>
+        </property>
+    </bean>
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"></bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"><property name="securityManager" ref="SecurityManager"></property></bean>
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="SecurityManager"></property>
+        <property name="loginUrl" value="views/login.jsp"></property>
+        <property name="successUrl" value="views/News.jsp"></property>
+        <property name="unauthorizedUrl" value="views/unauth.jsp"></property>
+        <property name="filterChainDefinitions">
+            <value>
+                views/login.jsp=anon
+                views/zhuce.jsp=anon
+                /**=authc
+            </value>
+
+
+        </property>
+    </bean>
+</beans>

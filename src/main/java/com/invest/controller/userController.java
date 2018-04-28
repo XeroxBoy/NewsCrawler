@@ -4,6 +4,7 @@ import com.invest.pojo.User;
 import com.invest.redis.RedisCache;
 import com.invest.redis.SerializeUtil;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,14 @@ public class userController {
         String username = user.getUsername();
         Subject subject =SecurityUtils.getSubject();
         UsernamePasswordToken token=new UsernamePasswordToken(username,user.getPassword());
-        subject.login(token);
-        request.setAttribute("user",user);
+       try {
+           subject.login(token);
+       }
+       catch (AuthenticationException e){
+           e.printStackTrace();
+
+       }
+       // request.setAttribute("user",user);
 //        try {
 //            username = new String(username.getBytes("ISO-8859-1"), "utf-8");//转码
 //        } catch (UnsupportedEncodingException e) {
@@ -60,10 +67,10 @@ public class userController {
         System.out.println();
         System.out.println();*/
 
-        String password = user.getPassword();
+    /*    String password = user.getPassword();
         if(username!=null)
-            oriUser = userService.selectUser(username);
-        if (oriUser!=null && oriUser.getPassword().equals(password) ) { //密码输入正确
+            oriUser = userService.selectUser(username);*/
+      //  if (oriUser!=null && oriUser.getPassword().equals(password) ) { //密码输入正确
             mav = new ModelAndView("redirect:/news/selectNews?pageNo=0");//跳转到用户界面
 
 
@@ -73,11 +80,11 @@ public class userController {
             session.setAttribute("email",oriUser.getEmail());
            // session.setAttribute("password",password);
             return mav;
-        } else {
+     /*   } else {
             errorMav = new ModelAndView("views/login");//信息错误 重新登录
             errorMav.addObject("msg", "请重新输入");
             return errorMav;
-        }
+        }*/
     }
 
     @RequestMapping("/userInfo")

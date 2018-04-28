@@ -3,7 +3,11 @@ package com.invest.controller;
 import com.invest.pojo.User;
 import com.invest.redis.RedisCache;
 import com.invest.redis.SerializeUtil;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 
@@ -24,16 +29,21 @@ public class userController {
     private userService userService;
 
     @RequestMapping("/login")
-    public ModelAndView userLogin(@ModelAttribute User user, HttpSession session) {
+    public ModelAndView userLogin(@ModelAttribute User user, HttpSession session, HttpServletRequest request) {
         ModelAndView errorMav, mav;
         User oriUser=null;
         String username = user.getUsername();
+        Subject subject =SecurityUtils.getSubject();
+        UsernamePasswordToken token=new UsernamePasswordToken(username,user.getPassword());
+        subject.login(token);
+        request.setAttribute("user",user);
 //        try {
 //            username = new String(username.getBytes("ISO-8859-1"), "utf-8");//转码
 //        } catch (UnsupportedEncodingException e) {
 //            e.printStackTrace();
 //        }
 
+/*
 
         User user1=new User();
         user1.setEmail("123@qq.com");
@@ -43,11 +53,12 @@ public class userController {
         cache.putObject("1", user1);
 
         User uu=(User) cache.getObject("1");
+*/
 
 
-        System.out.println(uu.getEmail()+" "+uu.getUsername()+" "+uu.getPassword());
+/*        System.out.println(uu.getEmail()+" "+uu.getUsername()+" "+uu.getPassword());
         System.out.println();
-        System.out.println();
+        System.out.println();*/
 
         String password = user.getPassword();
         if(username!=null)

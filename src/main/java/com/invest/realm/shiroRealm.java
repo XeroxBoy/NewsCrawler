@@ -25,6 +25,7 @@ public class shiroRealm extends AuthorizingRealm{
         SimpleAuthorizationInfo info= new SimpleAuthorizationInfo();
         Set<String> roles=new HashSet<>();
         roles.add("user");
+        if(principalCollection.equals("admin")) roles.add("admin");
         info.setRoles(roles);
     info.setStringPermissions(roles);
         return info;
@@ -34,6 +35,7 @@ public class shiroRealm extends AuthorizingRealm{
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String username=(String) authenticationToken.getPrincipal();
         User user = userService.selectUser(username);
+
         if(user!=null)
         {
             AuthenticationInfo info=new SimpleAuthenticationInfo(user.getUsername(),user.getPassword(),"realm");

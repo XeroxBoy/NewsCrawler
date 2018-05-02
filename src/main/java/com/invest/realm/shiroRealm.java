@@ -11,7 +11,11 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.invest.service.*;
+import sun.misc.BASE64Encoder;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,7 +39,20 @@ public class shiroRealm extends AuthorizingRealm{
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String username=(String) authenticationToken.getPrincipal();
         User user = userService.selectUser(username);
+       /* MessageDigest md5= null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
 
+        }
+        BASE64Encoder base64en = new BASE64Encoder();
+        String pass=null;
+        //加密后的字符串
+        try {
+            pass=base64en.encode(md5.digest(user.getPassword().getBytes("utf-8")));
+        } catch (UnsupportedEncodingException e) {
+
+        }*/
         if(user!=null)
         {
             AuthenticationInfo info=new SimpleAuthenticationInfo(user.getUsername(),user.getPassword(),"realm");

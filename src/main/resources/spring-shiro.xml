@@ -20,11 +20,11 @@
 <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
 </bean>
     <bean id="realm" class="com.invest.realm.shiroRealm">
-        <property name="credentialsMatcher">
+       <!-- <property name="credentialsMatcher">
 
             <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher"><property name="hashAlgorithmName" value="MD5"></property></bean>
 
-        </property>
+        </property>-->
     </bean>
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"></bean>

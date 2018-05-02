@@ -36,7 +36,7 @@ public class userController {
         User oriUser=null;
         String username = user.getUsername();
         Subject subject = SecurityUtils.getSubject();
-        MessageDigest md5= null;
+     /*   MessageDigest md5= null;
         try {
             md5 = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
@@ -44,8 +44,8 @@ public class userController {
         }
         BASE64Encoder base64en = new BASE64Encoder();
         //加密后的字符串
-        String pass=base64en.encode(md5.digest(user.getPassword().getBytes("utf-8")));
-        UsernamePasswordToken token=new UsernamePasswordToken(username,pass);
+        String pass=base64en.encode(md5.digest(user.getPassword().getBytes("utf-8")));*/
+        UsernamePasswordToken token=new UsernamePasswordToken(username,user.getPassword());
        try {
            subject.login(token);
        }

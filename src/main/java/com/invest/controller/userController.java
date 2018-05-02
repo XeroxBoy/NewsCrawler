@@ -1,48 +1,58 @@
 package com.invest.controller;
 
 import com.invest.pojo.User;
-import com.invest.redis.RedisCache;
-import com.invest.redis.SerializeUtil;
+import com.invest.service.userService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.invest.service.*;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import redis.clients.jedis.Jedis;
+import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 @Controller
-@ContextConfiguration(value = {"classpath:*.xml"})
 @RequestMapping("/user")
 public class userController {
     @Autowired
     private userService userService;
 
     @RequestMapping("/login")
-    public ModelAndView userLogin(@ModelAttribute User user, HttpSession session, HttpServletRequest request) {
+    public ModelAndView userLogin(@ModelAttribute User user, HttpSession session, HttpServletRequest request) throws UnsupportedEncodingException {
         ModelAndView errorMav, mav;
         User oriUser=null;
         String username = user.getUsername();
-        Subject subject =SecurityUtils.getSubject();
-        UsernamePasswordToken token=new UsernamePasswordToken(username,user.getPassword());
+        Subject subject = SecurityUtils.getSubject();
+        MessageDigest md5= null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+
+        }
+        BASE64Encoder base64en = new BASE64Encoder();
+        //加密后的字符串
+        String pass=base64en.encode(md5.digest(user.getPassword().getBytes("utf-8")));
+        UsernamePasswordToken token=new UsernamePasswordToken(username,pass);
        try {
            subject.login(token);
        }
        catch (AuthenticationException e){
            e.printStackTrace();
-
+            errorMav=new ModelAndView("views/login.jsp");
+           return errorMav;
        }
        // request.setAttribute("user",user);
 //        try {
@@ -78,7 +88,7 @@ public class userController {
             mav.addObject("name", username);
             //mav.addObject("password", password);
             session.setAttribute("name", username);//把用户名保存在session中
-            session.setAttribute("email",oriUser.getEmail());
+            session.setAttribute("email",user.getEmail());
            // session.setAttribute("password",password);
             return mav;
      /*   } else {

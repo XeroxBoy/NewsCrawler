@@ -2,25 +2,20 @@ package com.invest.controller;
 
 import com.invest.page.newsPage;
 import com.invest.pojo.news;
+import com.invest.service.newsService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.invest.service.newsService;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Random;
 
 /**
  * Created by AlexAnderIch on 2017/10/20.
@@ -65,7 +60,7 @@ public class newsController {
             listIndex = listIndex - 1;
             totalPage++;//如果最后一位不是0 那么多出一页应该装不满10条的记录
         }
-        System.out.println(listIndex + "  " + totalCount + thisMonth + newsPage.getList());
+        //System.out.println(listIndex + "  " + totalCount + thisMonth + newsPage.getList());
 
         Integer date = Integer.valueOf(newsPage.getList().get(listIndex).getTime().split("-")[1]);//类型转换,取出一条新闻的日期,判断是不是这个月
         System.out.println(date + " ");
@@ -98,34 +93,46 @@ public class newsController {
     public void crawlInfo() {
 // TODO
         System.out.println("进入爬取流程");
-        String urlStart = "http://blog.csdn.net/ranking.html";
-        String url = "http://blog.csdn.net/";
+        String urlStart = "https://blog.csdn.net/ranking.html";
+        String url = "https://blog.csdn.net/";
         String Agent = "Mozilla/5.0 (Windows NT 10.0; WOW64)";//headers内容
         try {
             Document doc = Jsoup.connect(urlStart).userAgent(Agent)
                     .get();
-            Elements rankingArticle = doc.select(".blog_pad a");//选中热门榜前10作者
+          // System.out.println(doc.body());
+            String str="博客周排行";
+            Elements rankingArticle = doc.select(".ranking:contains("+str+") .ranking_c .blog_pad");//选中热门榜前10作者
+
+/*
+            System.out.println(rankingArticle.html());
+*/
             int time = 1;//作者排行榜排名
             for (Element aRankingArticle : rankingArticle) {  //使用迭代器遍历
+                System.out.println(aRankingArticle.html());
                 System.out.println("进入循环");
+                System.out.println("article信息"+aRankingArticle.data());
                 Element oneArticle = aRankingArticle;
                 time++;
                 news newI = new news();//新建news对象 储存爬取的信息
                 if (time == 10) break;// 只筛选排名前十的文章
-                String userId = oneArticle.attr("href").split("/")[3];//获取作者ID 用于访问主页
+                String userId = oneArticle.select("a").attr("href").split("/")[3];//获取作者ID 用于访问主页
                 newI.setWriter(userId);//文章作者
                 String writerUrl = url + userId;//作者主页
+                System.out.println("writerUrl:"+writerUrl);
                 Document userPage = Jsoup.connect(writerUrl).userAgent(Agent).get();//访问文章作者主页
-                Elements titles = userPage.select(".article_item");//获取
+                Elements titles = userPage.select(".article-item-box");//获取
                 for (Element title : titles) {
                     System.out.println("进入作者文章循环");
-                    String fullUrl = url + title.select(".link_title a").attr("href");//文章链接
+                    String fullUrl =
+                            //url +
+                            title.select("a").attr("href");//文章链接
                     newI.setResource(fullUrl);
-                    newI.setTitle(title.select(".link_title a").text());//文章标题
+                    System.out.println("url:"+fullUrl+"   title："+title.select("a").text()+" content:"+title.select(".text-truncate a").text()+" time: "+title.select(".date").text());
+                    newI.setTitle(title.select(".text-truncate a").text());//文章标题
                     //  System.out.println(title.select(".link_title a").text());
                     //System.out.println(title.select(".article_description").text());
-                    newI.setSummary(title.select(".article_description").text());//文章摘要
-                    newI.setTime(title.select(".link_postdate").text());//文章时间
+                    newI.setSummary(title.select(".content a").text());//文章摘要
+                    newI.setTime(title.select(".date").text());//文章时间
                     NewsService.insertNews(newI);//保存查询到的文章
                     System.out.println("保存新闻成功" + newI);
                 }

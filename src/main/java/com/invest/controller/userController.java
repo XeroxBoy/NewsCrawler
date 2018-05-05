@@ -8,21 +8,17 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 @Controller
 @RequestMapping("/user")
@@ -147,7 +143,7 @@ public class userController {
     @RequestMapping("/upload")
     public ModelAndView userUpload(@RequestParam("file") CommonsMultipartFile file,HttpSession session) throws IOException{
         try {
-            File newFile=new File("E:/icon/"+ session.getAttribute("name") +".jpg");
+            File newFile=new File("E:/news/src/main/webapp/pic/"+ session.getAttribute("name") +".jpg");
             file.transferTo(newFile);//CommonsFile的上传方法
 
         } catch (IOException e) {

@@ -2,6 +2,7 @@ package com.invest.controller;
 
 import com.invest.pojo.User;
 import com.invest.service.userService;
+import com.invest.utils.MD5;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -31,17 +32,11 @@ public class userController {
         ModelAndView errorMav, mav;
         User oriUser=null;
         String username = user.getUsername();
-        Subject subject = SecurityUtils.getSubject();
-     /*   MessageDigest md5= null;
-        try {
-            md5 = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
 
-        }
-        BASE64Encoder base64en = new BASE64Encoder();
-        //加密后的字符串
-        String pass=base64en.encode(md5.digest(user.getPassword().getBytes("utf-8")));*/
-        UsernamePasswordToken token=new UsernamePasswordToken(username,user.getPassword());
+        Subject subject = SecurityUtils.getSubject();
+
+        String passwordMd5=MD5.encodeMd5(user.getPassword());
+        UsernamePasswordToken token=new UsernamePasswordToken(username,passwordMd5);
        try {
            subject.login(token);
        }
@@ -109,7 +104,8 @@ public class userController {
         ModelAndView errorMav, mav;
         String username = user.getUsername();
         String password = user.getPassword();
-
+        password=MD5.encodeMd5(password);
+        System.out.println("加密后密码"+password);
         User testUser = userService.selectUser(username); //查出用户信息 看是否注册过了
         if (testUser == null) { //如果这个用户帐号没有被注册过
             userService.insertUser(user);//注册成功

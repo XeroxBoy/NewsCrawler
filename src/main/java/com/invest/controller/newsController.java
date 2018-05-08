@@ -15,7 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by AlexAnderIch on 2017/10/20.
@@ -101,14 +103,38 @@ public class newsController {
                     .get();
           // System.out.println(doc.body());
             String str="博客周排行";
+            String str1="文章周排行";
             Elements rankingArticle = doc.select(".ranking:contains("+str+") .ranking_c .blog_pad");//选中热门榜前10作者
-
+            Elements rankingArt= doc.select(".ranking:contains("+str1+") .ranking_c li");//选中热门榜前10文章
 /*
             System.out.println(rankingArticle.html());
 */
             int time = 1;//作者排行榜排名
+            int artTime=1;//文章排行榜排名
+            for(Element aRankingArt:rankingArt){
+                Element oneArt=aRankingArt;
+                System.out.println("文章"+aRankingArt.data());
+
+                artTime++;
+                news newA=new news();
+                if(artTime==10) break;
+                Elements titles=oneArt.select("a");
+                newA.setWriter("翔哥");
+                for(Element title:titles){
+                    String oneTitle=title.text();
+                    String href=title.attr("href");
+                    System.out.println("标题"+oneTitle+"链接"+href);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    newA.setTime(sdf.format(new Date()));
+                    newA.setSummary(oneTitle);
+                    newA.setTitle(oneTitle);
+                    newA.setResource(href);
+                    NewsService.insertNews(newA);
+
+                }
+            }
             for (Element aRankingArticle : rankingArticle) {  //使用迭代器遍历
-                System.out.println(aRankingArticle.html());
+              //  System.out.println(aRankingArticle.html());
                 System.out.println("进入循环");
                 System.out.println("article信息"+aRankingArticle.data());
                 Element oneArticle = aRankingArticle;

@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </label>
         <input type="submit" value="Login">
     </form>
-    <h5><a href="views/zhuce.jsp">还没有注册？</a><p></p><a href="views/update.jsp">忘记密码了？</a></h5>
+    <h5><a href="${pageContext.request.contextPath}/views/zhuce.jsp">还没有注册？</a><p></p><a href="${pageContext.request.contextPath}/views/update.jsp">忘记密码了？</a></h5>
 
 </section>
 

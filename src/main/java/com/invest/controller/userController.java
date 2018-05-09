@@ -34,8 +34,10 @@ public class userController {
         String username = user.getUsername();
 
         Subject subject = SecurityUtils.getSubject();
-
+       // User user1 = userService.selectUser(username);
         String passwordMd5=MD5.encodeMd5(user.getPassword());
+      //  System.out.println("传过来的"+passwordMd5+"数据库的"+user1.getPassword());
+    //    System.out.println(user1.getPassword().equals(passwordMd5));
         UsernamePasswordToken token=new UsernamePasswordToken(username,passwordMd5);
        try {
            subject.login(token);
@@ -45,34 +47,7 @@ public class userController {
             errorMav=new ModelAndView("views/login.jsp");
            return errorMav;
        }
-       // request.setAttribute("user",user);
-//        try {
-//            username = new String(username.getBytes("ISO-8859-1"), "utf-8");//转码
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
 
-/*
-
-        User user1=new User();
-        user1.setEmail("123@qq.com");
-        user1.setPassword("daohaode");
-        user1.setUsername("abc");
-        RedisCache cache = new RedisCache("1");
-        cache.putObject("1", user1);
-
-        User uu=(User) cache.getObject("1");
-*/
-
-
-/*        System.out.println(uu.getEmail()+" "+uu.getUsername()+" "+uu.getPassword());
-        System.out.println();
-        System.out.println();*/
-
-    /*    String password = user.getPassword();
-        if(username!=null)
-            oriUser = userService.selectUser(username);*/
-      //  if (oriUser!=null && oriUser.getPassword().equals(password) ) { //密码输入正确
             mav = new ModelAndView("redirect:/news/selectNews?pageNo=0");//跳转到用户界面
 
 
@@ -82,11 +57,7 @@ public class userController {
             session.setAttribute("email",user.getEmail());
            // session.setAttribute("password",password);
             return mav;
-     /*   } else {
-            errorMav = new ModelAndView("views/login");//信息错误 重新登录
-            errorMav.addObject("msg", "请重新输入");
-            return errorMav;
-        }*/
+
     }
 
     @RequestMapping("/userInfo")
@@ -106,8 +77,10 @@ public class userController {
         String password = user.getPassword();
         password=MD5.encodeMd5(password);
         System.out.println("加密后密码"+password);
+
         User testUser = userService.selectUser(username); //查出用户信息 看是否注册过了
         if (testUser == null) { //如果这个用户帐号没有被注册过
+            user.setPassword(password);
             userService.insertUser(user);//注册成功
             mav = new ModelAndView("views/login");//跳转到登录界面
             return mav;

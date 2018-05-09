@@ -40,13 +40,6 @@ public class newsController {
         Integer thisMonth = today.getTime().getMonth() + 1;//因为这个类的月份从0开始- -
         int pageSize = 10;//每页的大小
         int startPage = pageNo;//页码'
-
-     /*   if(totalPage%10==0) {
-           newsPage = NewsService.selectNewsByPage(totalPage, pageSize);//从最新添加的新闻开始查
-        }
-        else {
-           newsPage = NewsService.selectNewsByPage(totalPage - 1, pageSize);//从最新添加的新闻开始查
-        }*/
         newsPage=NewsService.selectNewsByPage(0,pageSize);
         boolean haveCrawl=false;
         if(newsPage.getList().isEmpty()){
@@ -62,8 +55,6 @@ public class newsController {
             listIndex = listIndex - 1;
             totalPage++;//如果最后一位不是0 那么多出一页应该装不满10条的记录
         }
-        //System.out.println(listIndex + "  " + totalCount + thisMonth + newsPage.getList());
-
         Integer date = Integer.valueOf(newsPage.getList().get(listIndex).getTime().split("-")[1]);//类型转换,取出一条新闻的日期,判断是不是这个月
         System.out.println(date + " ");
         if(!haveCrawl) {
@@ -106,9 +97,7 @@ public class newsController {
             String str1="文章周排行";
             Elements rankingArticle = doc.select(".ranking:contains("+str+") .ranking_c .blog_pad");//选中热门榜前10作者
             Elements rankingArt= doc.select(".ranking:contains("+str1+") .ranking_c li");//选中热门榜前10文章
-/*
-            System.out.println(rankingArticle.html());
-*/
+
             int time = 1;//作者排行榜排名
             int artTime=1;//文章排行榜排名
             for(Element aRankingArt:rankingArt){
@@ -155,8 +144,7 @@ public class newsController {
                     newI.setResource(fullUrl);
                     System.out.println("url:"+fullUrl+"   title："+title.select("a").text()+" content:"+title.select(".text-truncate a").text()+" time: "+title.select(".date").text());
                     newI.setTitle(title.select(".text-truncate a").text());//文章标题
-                    //  System.out.println(title.select(".link_title a").text());
-                    //System.out.println(title.select(".article_description").text());
+
                     newI.setSummary(title.select(".content a").text());//文章摘要
                     newI.setTime(title.select(".date").text());//文章时间
                     NewsService.insertNews(newI);//保存查询到的文章
